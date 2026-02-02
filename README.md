@@ -8,7 +8,7 @@ Evan Bramblett
 Jalen Higgins
 
 ## Description 
-Our app will be a place for pet owners to be quickly connected to pet sitters and pet walkers for any of their needs. The app will include the ability to make bookings, a review system, GPS walking routes. Our app aims to create a easy way for pet owners to find care they need, from a wide range of pet caretakers.
+Our app will be a place for pet owners to be quickly connected to pet sitters and pet walkers for any of their needs. The app will include the ability to make bookings, a review system, and GPS walking routes. Our app aims to create an easy way for pet owners to find the care they need from a wide range of pet caretakers. The motivation is to streamline pet care by centralizing trust and logistics. The goal is to provide a reliable platform where owners can feel safe hiring help, and sitters can manage their business efficiently.
 
 ## App Functions
 1. Customer (Jalen):
@@ -23,3 +23,8 @@ Our app will be a place for pet owners to be quickly connected to pet sitters an
     2. Allow pet caretakers to accept/decline bookings - A system that lets caretakers confirm or decline bookings that they receive
     3. Create incident reports - A page that allows caretakers to create reports if there are any incidents with pets, so that it is documented
     4. Reply to reviews - See reviews posted to them, and allow them to add replies to reviews
+3. SysAdmin:
+    1. Manage user access - Ability to ban or suspend users (customers or providers) who violate terms of service.
+    2. Moderate services - Review new provider listings to ensure they meet safety standards before going live.
+    3. Moderate reviews - Remove reviews that contain hate speech or irrelevant content.
+    4. View usage statistics - Dashboard to view total bookings, revenue, and active user counts.
