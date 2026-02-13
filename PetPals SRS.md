@@ -148,7 +148,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 ---
 
 ## 4. Assumptions, Constraints, and Policies
--**User Authentication:** All users must create an account and be authenticated to view specific booking details or pet profiles.
+**User Authentication:** All users must create an account and be authenticated to view specific booking details or pet profiles.
 
 **Data Privacy:** Incident reports and pet medical notes are private and only viewable by the involved Customer and Caretaker.
 
