@@ -1,36 +1,39 @@
 
 # Requirements – Starter Template
 
-**Project Name:** Your App Name \
-**Team:** Names and roles \
+**Project Name:** PetPals \
+**Team:** Evan Bramblett (Provider), Jalen Higgins (Customer) \
 **Course:** CSC 340\
 **Version:** 1.0\
-**Date:** 2026-01-30
+**Date:** 2026-02-13
 
 ---
 
 ## 1. Overview
-**Vision.** One or two sentences: who this is for, the core problem, and the outcome.
+**Vision.** The app will be a place for customers to find reliable pet care, whether thats for simply hiring a walker or looking for pet sitting.
 
 **Glossary** Terms used in the project
-- **Term 1:** description.
-- **Term 2:** description
+- **Caretaker:** Hired professional who is hired for their services.
+- **Customer:** Any person using the app to hire caretakers.
+- **Booking:** The way customers hire caretakers, sets a time and date for the services to be provided.
+- **Incident:** Any situation or problem that arrises during a booking, that a caretaker feels should be documented.
+- **Review:** A message left after a booking, viewable to any other customer to see how other customers rate certain caretakers.
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement.
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — 1 line goal statement.
-- **SysAdmin (optional)** — 1 line goal statement.
+- **Customer** — Find services needed for their pets.
+- **Caretakers** — Provide professional and reliable services to customers who hire them.
 
 **Scope (this semester).**
-- <capability 1>
-- <capability 2>
-- <capability 3>
+- Create personal and pet accounts
+- Search and make bookings
+- Leave reviews and respond to reviews
+- Create incident reports
+- Accept or decline bookings
 
 **Out of scope (deferred).**
-- <deferred 1>
-- <deferred 2>
-
-> This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
+- Payment processing
+- GPS walking route tracker
+- Caretaker to customer chat room
 
 ---
 
@@ -60,53 +63,34 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 
 ### 2.2 Provider Stories
 - **US‑PROV‑001 — <short title>**  
-  _Story:_ As a provider, I want … so that …  
+  _Story:_ As a caretaker, I want accpet or decline bookings so that I can manage my own work schedule
+
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: Caretaker accepts or declines a booking
+    Given: A booking is made through the app and made visible to the caretaker
+    When: The caretake makes their choice to accept or decline
+    Then: The booking status is updated, and the customer is notified of the decision
   ```
 
 - **US‑PROV‑002 — <short title>**  
-  _Story:_ As a provider, I want … so that …  
-  _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
+  _Story:_ As a caretaker, I want to create incident reports so that customers are aware of incidents
 
-### 2.3 SysAdmin Stories
-- **US‑ADMIN‑001 — <short title>**  
-  _Story:_ As a sysadmin, I want … so that …  
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
-
-- **US‑ADMIN‑002 — <short title>**  
-  _Story:_ As a sysadmin, I want … so that …  
-  _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: Caretaker creates an incident report
+    Given: An incident occurs, and the caretaker feels that it needs to be document
+    When: The caretaker uses the app to create a report of what happened
+    Then: The report is saves to the database and the customer is notified of the report
   ```
 
 ---
 
 ## 3. Non‑Functional Requirements (make them measurable)
-- **Performance:** description 
-- **Availability/Reliability:** description
-- **Security/Privacy:** description
-- **Usability:** description
+- **Performance:** The app should be able to handle several hundred requests without slowing down, and should send notifications for bookings, incidents, reviews, etc. within 5 seconds. 
+- **Availability/Reliability:** The system will remain operational 99% of the time, with regular maintaince once a month for 1 hour.
+- **Security/Privacy:** All data will be encrypted, passwords stored in a hashing, any access to personal information/incident reports are viewable by authenticated users. Automatic logout after 30 minutes. 
+- **Usability:** New accounts will be easy to create, less than 3 minutes. Service search and booking should take less than 5 minutes, with less than 10 steps.
 
 ---
 
