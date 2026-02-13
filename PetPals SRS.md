@@ -62,7 +62,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   ```
 
 ### 2.2 Provider Stories
-- **US‑PROV‑001 — <short title>**  
+- **US‑PROV‑001 — Accept/decline Booking**  
   _Story:_ As a caretaker, I want accpet or decline bookings so that I can manage my own work schedule
 
   _Acceptance:_
@@ -73,7 +73,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then: The booking status is updated, and the customer is notified of the decision
   ```
 
-- **US‑PROV‑002 — <short title>**  
+- **US‑PROV‑002 — Create incident reports**  
   _Story:_ As a caretaker, I want to create incident reports so that customers are aware of incidents
 
   _Acceptance:_
@@ -82,6 +82,39 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Given: An incident occurs, and the caretaker feels that it needs to be document
     When: The caretaker uses the app to create a report of what happened
     Then: The report is saves to the database and the customer is notified of the report
+  ```
+
+- **US‑PROV‑003 — Respond to reviews**  
+  _Story:_ As a caretaker, I want to respond ro reviews so that public information can have both the previous custoemr and caretaker point of views
+
+  _Acceptance:_
+  ```gherkin
+  Scenario: Caretake responds to review
+    Given: A review is left for a caretaker
+    When: The caretaker can respond to the review
+    Then: The response is posted and is viewable to the public
+  ```
+
+  - **US‑PROV‑004— View Booking Details**  
+  _Story:_ As a caretaker, I want to be able to see the infomation of a booking I've accepted so I can prepare for it.
+
+  _Acceptance:_
+  ```gherkin
+  Scenario: Caretake views accepted booking
+    Given: The caretake has at least one pending accepted booking
+    When: The caretaker opens the booking page
+    Then: The app displays customer information, pet details, services requests, etc.
+  ```
+
+    - **US‑PROV‑005— Manage Availability**  
+  _Story:_ As a caretaker, I want to be able set my own availability so that I can block time out automatically from booking requests
+
+  _Acceptance:_
+  ```gherkin
+  Scenario: Caretake adds/changes their availability
+    Given: The caretaker is logged into their account
+    When: The caretaker edits days/times they are available
+    Then: The app updates this information, and presents it to customers when viewing this caretaker
   ```
 
 ---
