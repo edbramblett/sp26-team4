@@ -41,24 +41,44 @@
 Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
 
 ### 2.1 Customer Stories
-- **US‑CUST‑001 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+- **US‑CUST‑001 — Search for Service Providers**  
+  _Story:_ As a customer, I want to search for pet walkers and sitters, so that I can find the right professional for my pet's specific needs.  
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: Customer searches by service type
+    Given I am on the "Search" page
+    When I select "Pet Sitter" from the service dropdown and enter my location
+    Then the system displays a list of available providers who match those criteria
   ```
 
-- **US‑CUST‑002 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+- **US‑CUST‑002 — Manage Pet Profiles**  
+  _Story:_ As a customer, I want to create and update a profile for my pet, so that caretakers have all the necessary care instructions before a booking.  
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: Adding a new pet to the account
+    Given I am logged into my customer account
+    When I navigate to "My Pets" and enter my pet's name, breed, and medical notes
+    Then the pet profile is saved and attached to my account for future bookings
+  ```
+
+- **US‑CUST‑003 — Book a Service**  
+  _Story:_ As a customer, I want to request a booking with a specific caretaker, so that I can secure pet care for a specific date and time. 
+  _Acceptance:_
+  ```gherkin
+  Scenario: Submitting a booking request
+  Given I am viewing a caretaker's profile [cite: 14]
+  When I select an available time slot and click "Request Booking" 
+  Then the booking status changes to "Pending" and the caretaker is notified
+  ```
+
+  - **US‑CUST‑004 — Leave a Provider Review Story**  
+  _Story:_ As a customer, I want to leave a review after a service is completed, so that I can inform other pet owners about my experience. 
+  _Acceptance:_
+  ```gherkin
+  Scenario: Rating a completed service
+  Given a booking has been marked as "Completed"
+  When I submit a star rating and a text comment on the caretaker's page 
+  Then the review is published to the caretaker's public profile
   ```
 
 ### 2.2 Provider Stories
@@ -128,7 +148,15 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 ---
 
 ## 4. Assumptions, Constraints, and Policies
-- list any rules, policies, assumptions, etc.
+-**User Authentication:** All users must create an account and be authenticated to view specific booking details or pet profiles.
+
+**Data Privacy:** Incident reports and pet medical notes are private and only viewable by the involved Customer and Caretaker.
+
+**Scope Constraint:** The MVP version of PetPals will not handle financial transactions; users are responsible for arranging payment outside of the app.
+
+**Review Policy:** Customers can only leave reviews for caretakers they have successfully booked and completed a service with.
+
+**Notification Policy:** The system assumes users have enabled in-app notifications to receive updates on booking statuses and incident reports
 
 ---
 
