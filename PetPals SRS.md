@@ -95,7 +95,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then: The response is posted and is viewable to the public
   ```
 
-  - **US‑PROV‑004— View Booking Details**  
+- **US‑PROV‑004— View Booking Details**  
   _Story:_ As a caretaker, I want to be able to see the infomation of a booking I've accepted so I can prepare for it.
 
   _Acceptance:_
@@ -106,7 +106,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then: The app displays customer information, pet details, services requests, etc.
   ```
 
-    - **US‑PROV‑005— Manage Availability**  
+- **US‑PROV‑005— Manage Availability**  
   _Story:_ As a caretaker, I want to be able set my own availability so that I can block time out automatically from booking requests
 
   _Acceptance:_
