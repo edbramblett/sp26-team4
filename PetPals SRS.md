@@ -63,7 +63,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 
 ### 2.2 Provider Stories
 - **US‑PROV‑001 — Accept/decline Booking**  
-  _Story:_ As a caretaker, I want accpet or decline bookings so that I can manage my own work schedule
+  _Story:_ As a caretaker, I want accept or decline bookings so that I can manage my own work schedule
 
   _Acceptance:_
   ```gherkin
@@ -74,7 +74,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   ```
 
 - **US‑PROV‑002 — Create incident reports**  
-  _Story:_ As a caretaker, I want to create incident reports so that customers are aware of incidents
+  _Story:_ As a caretaker, I want to create incident reports when necessary
 
   _Acceptance:_
   ```gherkin
