@@ -72,7 +72,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   ```
 
   - **US‑CUST‑004 — Leave a Provider Review Story**  
-  _Story:_ As a customer, I want to leave a review after a service is completed, so that I can inform other pet owners about my experience. 
+  _Story:_ As a customer, I want to leave a review after a service is completed, so that I can inform other pet owners about my experience.  
   _Acceptance:_
   ```gherkin
   Scenario: Rating a completed service
@@ -173,3 +173,5 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 ## 6. Change Management
 - Stories are living artifacts; changes are tracked via repository issues and linked pull requests.  
 - Major changes should update this SRS.
+
+---
