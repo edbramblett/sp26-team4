@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetPals - Sign Up</title>
+
+    <style>
+        :root {
+            --bg: #152033;
+            --panel: rgba(255,255,255,0.06);
+            --border: rgba(255,255,255,0.14);
+            --text: #ffffff;
+            --muted: rgba(255,255,255,0.75);
+            --radius: 14px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            height: 70px;
+            padding: 0 22px;
+            background: rgba(0, 0, 0, 0.35);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: var(--panel);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            width: 350px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #0f1726;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2b7bb8;
+        }
+
+        .note {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--muted);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>PetPals</h1>
+    <a href="index.html">Home</a>
+</header>
+
+<main>
+    <div class="card">
+        <h2>Create your account</h2>
+
+        <form>
+            <label>Name</label>
+            <input type="text" placeholder="Your full name">
+
+            <label>Phone Number</label>
+            <input type="tel" placeholder="(000) 456-7890">
+
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com">
+
+            <label>Password</label>
+            <input type="password" placeholder="Create a password">
+
+            <button type="submit">Sign up</button>
+        </form>
+
+        <div class="note">
+            Already have an account? <a href="login.html" style="color:#fff;">Log in</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
