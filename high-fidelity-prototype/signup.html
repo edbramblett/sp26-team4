@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetPals - Sign Up</title>
+
+        <style>
+        :root {
+            --pet-teal: #4db6ac;
+            --pet-coral: #ff8a65;
+            --pet-cream: #fffdfb;
+            --pet-dark: #37474f;
+            --pet-gray: #b0bec5;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--pet-cream);
+            color: var(--pet-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            height: 75px;
+            padding: 0 30px;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: var(--pet-teal);
+            font-weight: bold;
+        }
+
+        header a {
+            color: var(--pet-teal);
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #f0f4f8;
+            padding: 10px 18px;
+            border-radius: 12px;
+            background: #f0f4f8;
+            transition: 0.2s;
+        }
+
+        header a:hover {
+            background: #e0f2f1;
+            border-color: var(--pet-teal);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 40px;
+            width: 380px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 2px solid #f1f5f9;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 32px;
+            color: var(--pet-teal);
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--pet-dark);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            border-radius: 15px;
+            border: 2px solid #edf2f7;
+            background: #ffffff;
+            color: var(--pet-dark);
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--pet-teal);
+            background: #f0fdfa;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 30px;
+            padding: 16px;
+            border-radius: 15px;
+            border: none;
+            background: var(--pet-coral);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 138, 101, 0.3);
+        }
+
+        .note {
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--pet-gray);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>PetPals</h1>
+    <a href="index.html">Home</a>
+</header>
+
+<main>
+    <div class="card">
+        <h2>Create your account</h2>
+
+        <form>
+            <label>Name</label>
+            <input type="text" placeholder="Your full name">
+
+            <label>Phone Number</label>
+            <input type="tel" placeholder="(000) 456-7890">
+
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com">
+
+            <label>Password</label>
+            <input type="password" placeholder="Create a password">
+
+            <button type="submit">Sign up</button>
+        </form>
+
+        <div class="note">
+            Already have an account? <a href="login.html" style="color:#fff;">Log in</a>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
