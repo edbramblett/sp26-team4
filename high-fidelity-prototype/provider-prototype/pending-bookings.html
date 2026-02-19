@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles.css">
+    <title>PetPals | Pending Bookings</title>
+
+    <style>
+        #directoryMenu {
+            display: none !important;
+        }
+
+        #directoryMenu.active {
+            display: block !important;
+        }
+
+        .booking-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .accept-btn {
+            background: #2ecc71;
+        }
+
+        .decline-btn {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-logo">🐾</div>
+        <div class="header-title">DIRECTORY</div>
+        <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <nav class="directory-overlay" id="directoryMenu">
+        <ul class="directory-list">
+            <li><a href="caretaker-home.html">Home</a></li>
+            <li><a href="pending-bookings.html">Pending Bookings</a></li>
+            <li><a href="incident-report.html">Incident Reports</a></li>
+            <li><a href="respond-reviews.html">Respond to Reviews</a></li>
+            <li><a href="account.html">Edit Account</a></li>
+            <li><a href="../login.html" style="color: #ffb71b;">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content" id="pageContent">
+        <h1>Pending Bookings</h1>
+        <h2>Bookings Awaiting Your Response</h2>
+
+        <!-- Booking 1 -->
+        <div class="booking-card">
+            <h3>Booking #1 — Bella (Dog)</h3>
+            <p><strong>Owner:</strong> Jalen</p>
+            <p><strong>Date:</strong> Feb 20, 2026</p>
+            <p><strong>Service:</strong> Pet Sitting</p>
+
+            <button class="action-btn accept-btn">Accept</button>
+            <button class="action-btn decline-btn">Decline</button>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("directoryMenu");
+            var btn = document.getElementById("menuBtn");
+            var content = document.getElementById("pageContent");
+
+            menu.classList.toggle("active");
+
+            if (menu.classList.contains("active")) {
+                btn.innerHTML = "✕";
+                content.style.display = "none";
+            } else {
+                btn.innerHTML = "☰";
+                content.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
