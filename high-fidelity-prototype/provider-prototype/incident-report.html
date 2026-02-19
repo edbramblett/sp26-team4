@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles.css">
+    <title>PetPals | Incident Reports</title>
+
+    <style>
+        #directoryMenu {
+            display: none !important;
+        }
+
+        #directoryMenu.active {
+            display: block !important;
+        }
+
+        .report-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .submit-btn {
+            background: #3498db;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-logo">🐾</div>
+        <div class="header-title">DIRECTORY</div>
+        <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <nav class="directory-overlay" id="directoryMenu">
+        <ul class="directory-list">
+            <li><a href="caretaker-home.html">Home</a></li>
+            <li><a href="pending-bookings.html">Pending Bookings</a></li>
+            <li><a href="incident-report.html">Incident Reports</a></li>
+            <li><a href="respond-reviews.html">Respond to Reviews</a></li>
+            <li><a href="account.html">Edit Account</a></li>
+            <li><a href="../login.html" style="color: #ffb71b;">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content" id="pageContent">
+        <h1>Incident Reports</h1>
+        <h2>Create a New Report</h2>
+
+        <div class="report-card">
+            <label for="booking">Select Booking</label>
+            <select id="booking">
+                <option>Booking #1 — Bella (Dog)</option>
+                <option>Booking #2 — Luna (Dog)</option>
+            </select>
+
+            <label for="incident">Incident Description</label>
+            <textarea id="incident" placeholder="Describe what happened..."></textarea>
+
+            <button class="submit-btn">Submit Report</button>
+        </div>
+
+        <h2>Previous Reports</h2>
+
+        <div class="report-card">
+            <h3>Booking #1009 — Max (Dog)</h3>
+            <p><strong>Date:</strong> Feb 10, 2026</p>
+            <p><strong>Report:</strong> Max became anxious during the walk and attempted to pull away from the leash. No injuries occurred.</p>
+        </div>
+
+        <div class="report-card">
+            <h3>Booking #1015 — Oliver (Cat)</h3>
+            <p><strong>Date:</strong> Feb 14, 2026</p>
+            <p><strong>Report:</strong> Oliver scratched the caretaker while being placed in the carrier. Minor injury, treated on-site.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("directoryMenu");
+            var btn = document.getElementById("menuBtn");
+            var content = document.getElementById("pageContent");
+
+            menu.classList.toggle("active");
+
+            if (menu.classList.contains("active")) {
+                btn.innerHTML = "✕";
+                content.style.display = "none";
+            } else {
+                btn.innerHTML = "☰";
+                content.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
