@@ -47,7 +47,7 @@ public class CaretakerController {
     @PutMapping("/{id}")
     public ResponseEntity<Caretaker> updateFarmer(@PathVariable Long id, @RequestBody Caretaker caretakerDetails) {
         try {
-            Caretaker updatedCaretaker = caretakerService.updateFarmer(id, caretakerDetails);
+            Caretaker updatedCaretaker = caretakerService.updateCaretaker(id, caretakerDetails);
             return new ResponseEntity<>(updatedCaretaker, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -1,4 +1,4 @@
-package com.csc340_team4.petpals.serivce;
+package com.csc340_team4.petpals.service;
 
 import com.csc340_team4.petpals.entity.Caretaker;
 import com.csc340_team4.petpals.repository.CaretakerRepository;
@@ -18,34 +18,32 @@ public class CaretakerService {
         return caretakerRepository.save(caretaker);
     }
 
-    public Optional<Caretaker> getCaretakerrById(Long id) {
+    public Optional<Caretaker> getCaretakerById(Long id) {
         return caretakerRepository.findById(id);
     }
 
-    public List<Farmer> getAllFarmers() {
-        return farmerRepository.findAll();
-    }
-
-    public Farmer updateFarmer(Long id, Farmer farmerDetails) {
-        return farmerRepository.findById(id).map(farmer -> {
-            if (farmerDetails.getEmail() != null) {
-                farmer.setEmail(farmerDetails.getEmail());
-            }
-            if (farmerDetails.getBio() != null) {
-                farmer.setBio(farmerDetails.getBio());
-            }
-            if (farmerDetails.getStatus() != null) {
-                farmer.setStatus(farmerDetails.getStatus());
-            }
-            return farmerRepository.save(farmer);
-        }).orElseThrow(() -> new RuntimeException("Farmer not found"));
+    public List<Caretaker> getAllCaretaker() {
+        return caretakerRepository.findAll();
     }
 
     public void deleteFarmer(Long id) {
-        farmerRepository.deleteById(id);
+        caretakerRepository.deleteById(id);
     }
 
-    public Farmer getFarmerByEmail(String email) {
-        return farmerRepository.findByEmail(email);
+    public Caretaker getCaretakerByEmail(String email) {
+        return caretakerRepository.findByEmail(email);
     }
+
+    public Caretaker updateCaretaker(Long id, Caretaker caretaerDetails) {
+        return caretakerRepository.findById(id).map(caretaker -> {
+            if (caretakerDetails.getEmail() != null) {
+                caretaker.setEmail(caretakerDetails.getEmail());
+            }
+            if (caretakerDetails.getBio() != null) {
+                caretaker.setServicesProvided(caretakerDetails.getBio());
+            }
+            return caretakerRepository.save(caretaker);
+        }).orElseThrow(() -> new RuntimeException("Farmer not found"));
+    }
+
 }
