@@ -26,8 +26,8 @@ public class CaretakerController {
 
     @GetMapping
     public ResponseEntity<List<Caretaker>> getAllCaretakers() {
-        List<Caretaker> caretakers = caretakersService.getAllCaretakers();
-        return new ResponseEntity<>(caretakerss, HttpStatus.OK);
+        List<Caretaker> caretakers = caretakerService.getAllCaretaker();
+        return new ResponseEntity<>(caretakers, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -38,17 +38,17 @@ public class CaretakerController {
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<Farmer> getFarmerByEmail(@PathVariable String email) {
-        Farmer farmer = farmerService.getFarmerByEmail(email);
-        return farmer != null ? new ResponseEntity<>(farmer, HttpStatus.OK)
+    public ResponseEntity<Caretaker> getCaretakerByEmail(@PathVariable String email) {
+        Caretaker caretaker = caretakerService.getCaretakerByEmail(email);
+        return caretaker != null ? new ResponseEntity<>(caretaker, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Farmer> updateFarmer(@PathVariable Long id, @RequestBody Farmer farmerDetails) {
+    public ResponseEntity<Caretaker> updateFarmer(@PathVariable Long id, @RequestBody Caretaker caretakerDetails) {
         try {
-            Farmer updatedFarmer = farmerService.updateFarmer(id, farmerDetails);
-            return new ResponseEntity<>(updatedFarmer, HttpStatus.OK);
+            Caretaker updatedCaretaker = caretakerService.updateCaretaker(id, caretakerDetails);
+            return new ResponseEntity<>(updatedCaretaker, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -56,7 +56,7 @@ public class CaretakerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFarmer(@PathVariable Long id) {
-        farmerService.deleteFarmer(id);
+        caretakerService.deleteFarmer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
