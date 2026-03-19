@@ -1,4 +1,4 @@
-package csc340_team4.entity;
+package com.csc340_team4.petpals.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

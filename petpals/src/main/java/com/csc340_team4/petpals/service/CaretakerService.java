@@ -1,7 +1,7 @@
-package csc340_team4.service;
+package com.csc340_team4.petpals.serivce;
 
-import com.csc340_team4.backendapi.entity.Caretaker;
-import com.csc340_team4.backendapi.entity.CaretakerRepository;
+import com.csc340_team4.petpals.entity.Caretaker;
+import com.csc340_team4.petpals.repository.CaretakerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FarmerService {
+public class CaretakerService {
 
     @Autowired
-    private FarmerRepository farmerRepository;
+    private CaretakerRepository caretakerRepository;
 
-    public Farmer createFarmer(Farmer farmer) {
-        return farmerRepository.save(farmer);
+    public Caretaker createCaretaker(Caretaker caretaker) {
+        return caretakerRepository.save(caretaker);
     }
 
-    public Optional<Farmer> getFarmerById(Long id) {
-        return farmerRepository.findById(id);
+    public Optional<Caretaker> getCaretakerrById(Long id) {
+        return caretakerRepository.findById(id);
     }
 
     public List<Farmer> getAllFarmers() {
