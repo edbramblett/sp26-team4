@@ -1,13 +1,13 @@
-package csc340_team4.backend_api;
+package com.csc340_team4.petpals;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class PetpalsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(PetpalsApplication.class, args);
 	}
 
 }
