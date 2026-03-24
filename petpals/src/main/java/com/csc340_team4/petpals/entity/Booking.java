@@ -30,11 +30,11 @@ public class Booking {
     private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "caretaker_id", nullable = false)
+    @JoinColumn(name = "caretaker_id", nullable = true)
     private Caretaker caretaker;
 
     // @ManyToOne
-    // @JoinColumn(name = "customer_id")
+    // @JoinColumn(name = "customer_id", nullable = false)
     // private Customer customer;
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
