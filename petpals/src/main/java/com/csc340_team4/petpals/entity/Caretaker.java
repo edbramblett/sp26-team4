@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 
 @Entity
 @Table(name = "caretakers")
@@ -17,4 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Caretaker extends User{
     @Column(columnDefinition = "TEXT")
     private String servicesProvided;
+
+    @OneToMany(mappedBy = "caretaker", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
 }
