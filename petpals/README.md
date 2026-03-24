@@ -14,8 +14,8 @@ The API supports three primary user roles:
 ### Caretaker/Provider Management
 
 #### Create Caretaker
-**Endpoint:** `POST /caretaker`
-**Use Case:** Register as Caretaker
+**Endpoint:** `POST /caretaker`\
+**Use Case:** Register as Caretaker\
 **Description:** Create a new caretaker account.
 
 ```http
@@ -55,8 +55,8 @@ Content-Type: application/json
 ---
 
 #### Get All Caretakers
-**Endpoint:** `GET /caretakers`
-**Use Case:** Browse providers
+**Endpoint:** `GET /caretakers`\
+**Use Case:** Browse providers\
 **Description:** Retrieve all caretaker accounts.
 
 ```http
@@ -68,8 +68,8 @@ GET /caretaker
 ---
 
 #### Get Caretaker by ID
-**Endpoint:** `GET /caretakers/{id}`
-**Use Case:** caretaker profile view
+**Endpoint:** `GET /caretakers/{id}`\
+**Use Case:** caretaker profile view\
 **Description:** Retrieve specific caretaker by ID.
 
 ```http
@@ -81,8 +81,8 @@ GET /caretakers/2
 ---
 
 #### Get Caretaker by Email
-**Endpoint:** `GET /caretakers/email/{email}`
-**Use Case:** Caretaker lookup
+**Endpoint:** `GET /caretakers/email/{email}`\
+**Use Case:** Caretaker lookup\
 **Description:** Retrieve caretaker by email address.
 
 ```http
@@ -94,8 +94,8 @@ GET /caretakers/email/{email}
 ---
 
 #### Get Caretaker by Services Provided
-**Endpoint:** `GET /caretakers/search?service={service}`
-**Use Case:** Caretaker lookup
+**Endpoint:** `GET /caretakers/search?service={service}`\
+**Use Case:** Caretaker lookup\
 **Description:** Retrieve caretaker by services provided.
 
 ```http
@@ -107,8 +107,8 @@ GET /caretakers/search?service={service}
 ---
 
 #### Update Caretaker
-**Endpoint:** `PUT /caretaker/{id}`
-**Use Case:** US-PROV-005 (Update Profile)
+**Endpoint:** `PUT /caretaker/{id}`\
+**Use Case:** US-PROV-005 (Update Profile)\
 **Description:** Update caretaker profile information.
 
 ```http
@@ -133,9 +133,9 @@ Content-Type: application/json
 
 ---
 
-#### Delete Farmer
-**Endpoint:** `DELETE /caretaker/{id}`
-**Use Case:** Account deletion
+#### Delete Caretaker
+**Endpoint:** `DELETE /caretaker/{id}`\
+**Use Case:** Account deletion\
 **Description:** Delete caretaker account.
 
 ```http
@@ -146,11 +146,11 @@ DELETE /caretaker/2
 
 ---
 
-### Booking
+### Bookings
 
 #### Create Booking
-**Endpoint:** `POST /caretaker`
-**Use Case:** US-CUST-003 (Customer creates a booking)
+**Endpoint:** `POST /bookings`\
+**Use Case:** US-CUST-003 (Customer creates a booking)\
 **Description:** Create a new booking
 
 ```http
@@ -185,10 +185,208 @@ Content-Type: application/json
   },
   "pets": [],
   "caretaker": null,
-  "incidentReport": null
+  "caretaker_id": null,
+  "custoemr_id": 5,
+  "incidentReportId": null
 }
 ```
 
 **Status Code:** `201 Created`
+
+---
+
+#### Get All Bookings
+**Endpoint:** `GET /bookings`\
+**Use Case:** Browse bookings\
+**Description:** Retrieve all bookings.
+
+```http
+GET /bookings
+```
+
+**Status Code:** `200 OK`
+
+---
+
+#### Get Booking by ID
+**Endpoint:** `GET /bookings/{id}`\
+**Use Case:** View specific booking\
+**Description:** Retrieve specific booking by ID.
+
+```http
+GET /bookings/2
+```
+
+**Status Code:** `200 OK` or `404 Not Found`
+
+---
+
+#### Update Booking
+**Endpoint:** `PUT "/bookings/{bookingId}/{caretaker_id}"\
+**Use Case:** US-PROV-001 (Accept/Decline Booking)\
+**Description:** Update a booking to include a caretaker if accepted
+
+```http
+PUT /bookings/12/1
+Content-Type: application/json
+
+{
+  "serviceType": "Dog Walking",
+  "date": "2026-03-28T14:30:00",
+  "customer_id": 5,
+  "petIds": [1, 3]
+  "
+}
+```
+
+**Response:** Updated booking object
+
+```json
+{
+	"bookingId": 1,
+	"serviceType": "Dog Walking",
+	"date": "2026-03-25T14:30:00",
+	"caretaker": {
+		"servicesProvided": "Pet sitting, dog walking",
+		"createdAt": "2026-03-24T02:41:18.148487",
+		"email": "test2@example.com",
+		"firstName": "Jane",
+		"lastName": "Doe",
+		"passwordHash": "password",
+		"phoneNumber": "(123)-456-7890",
+		"role": "CARETAKER",
+		"updatedAt": "2026-03-24T02:41:18.148487",
+		"userId": 3
+	},
+    "customer": {
+        "createdAt": "2026-03-24T02:41:18.1484874",
+        "email": "test@example.com",
+        "firstName": "John",
+        "lastName": "Doe",
+        "passwordHash": "password",
+        "phoneNumber": "(123)-456-7890",
+        "role": "CUSTOMER",
+        "updatedAt": "2026-03-23T16:41:18.1484874",
+        "userId": 5
+    },
+	"caretaker_id": 3,
+	"customer_id": 5
+    "incidentReportId": null
+}
+```
+
+**Status Code:** `200 OK` or `404 Not Found`
+
+---
+
+
+#### Delete Booking
+**Endpoint:** `DELETE /booking/{id}`\
+**Use Case:** US-PROV-001 (Booking deletion)\
+**Description:** Delete/decline booking.
+
+```http
+DELETE /booking/12
+```
+
+**Status Code:** `204 No Content` or `404 Not Found`
+
+---
+
+### Incident Reports
+
+#### Create Incident Report
+**Endpoint:** `POST /incident-reports/{caretake_id}/{bookingId}`\
+**Use Case:** US-PROV-002 (Caretaker creates an indicent report)\
+**Description:** Create a new incident report
+
+```http
+POST /incident-reports/3/2
+Content-Type: application/json
+
+{
+  "description": "Dog became aggressive during the walk. No injuries, but behavior was concerning."
+}
+
+
+```
+
+**Response:**
+```json
+{
+	"reportId": 1,
+	"description": "Dog became aggressive during the walk. No injuries, but behavior was concerning."
+}
+```
+
+**Status Code:** `201 Created`
+
+---
+
+#### Get All Incident Reports
+**Endpoint:** `GET /incident-reports`\
+**Use Case:** Browse all incident reports\
+**Description:** Retrieve all incident reports.
+
+```http
+GET /incident-reports
+```
+
+
+**Status Code:** `200 OK`
+
+
+---
+
+#### Get Incident Report ID
+**Endpoint:** `GET /incident-reports/{id}`\
+**Use Case:** Browse a specific incident report\
+**Description:** Retrieve specific incident report ID.
+
+```http
+GET /incident-reports/2
+```
+
+**Status Code:** `200 OK` or `404 Not Found`
+
+---
+---
+
+#### Get Incident Report by Caretaker ID
+**Endpoint:** `GET /incident-reports/caretaker/{caretaker_id}`\
+**Use Case:** Browse all incident reports from a specific caretaker\
+**Description:** Retrieve specific incident reports by a caretaker ID.
+
+```http
+GET /incident-reports/caretaker/2
+```
+
+**Status Code:** `200 OK` or `404 Not Found`
+
+---
+
+#### Get Incident Report by Booking ID
+**Endpoint:** `GET /incident-reports/booking/{bookingId}`\
+**Use Case:** Browse all incident reports from a specific booking\
+**Description:** Retrieve specific incident reports by a booking ID.
+
+```http
+GET /incident-reports/booking/3
+```
+
+**Status Code:** `200 OK` or `404 Not Found`
+
+---
+
+#### Delete Incident Report
+**Endpoint:** `DELETE /incident-reports/{id}`\
+**Use Case:** Incident report deletion\
+**Description:** Delete incident report.
+
+```http
+DELETE /incident-reports/12
+```
+
+**Status Code:** `204 No Content` or `404 Not Found`
 
 ---
