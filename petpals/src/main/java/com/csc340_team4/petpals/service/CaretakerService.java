@@ -33,7 +33,13 @@ public class CaretakerService {
     public Caretaker getCaretakerByEmail(String email) {
         return caretakerRepository.findByEmail(email);
     }
-
+    
+    public List<Caretaker> getServicesProvided(String service) {
+        return caretakerRepository.findAll().stream()
+                .filter(c -> c.getServicesProvided() != null && c.getServicesProvided().toLowerCase().contains(service.toLowerCase()))
+                .toList();
+    }
+    
     public Caretaker updateCaretaker(Long id, Caretaker caretakerDetails) {
         return caretakerRepository.findById(id).map(caretaker -> {
             if (caretakerDetails.getEmail() != null) {

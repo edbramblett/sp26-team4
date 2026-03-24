@@ -2,6 +2,7 @@ package com.csc340_team4.petpals.service;
 
 import com.csc340_team4.petpals.entity.Booking;
 import com.csc340_team4.petpals.entity.Caretaker;
+import com.csc340_team4.petpals.entity.User;
 import com.csc340_team4.petpals.repository.BookingRepository;
 import com.csc340_team4.petpals.repository.CaretakerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,13 @@ public class BookingService {
     private CaretakerRepository caretakerRepository;
 
 
-    public Booking createBooking(Long caretakerId, Booking bookingDetails) {
-
-        Caretaker caretaker = caretakerRepository.findById(caretakerId)
+    public Booking createBooking(Booking booking) {
+        Caretaker caretaker = caretakerRepository.findById(booking.getCaretaker_id())
                 .orElseThrow(() -> new RuntimeException("Caretaker not found"));
 
-        bookingDetails.setCaretaker(caretaker);
+        booking.setCaretaker(caretaker);
 
-        return bookingRepository.save(bookingDetails);
+        return bookingRepository.save(booking);
     }
 
     public List<Booking> getAllBookings() {
