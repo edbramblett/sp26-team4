@@ -40,12 +40,12 @@ public class IncidentReportController {
         return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
-    @GetMapping("/caretaker/{caretaker_id}")
+    @GetMapping("/caretakers/{caretaker_id}")
     public ResponseEntity<List<IncidentReport>> getReportsByCaretaker(@PathVariable Long caretaker_id) {
         return new ResponseEntity<>(incidentReportService.getReportsByCaretaker(caretaker_id), HttpStatus.OK);
     }
 
-    @GetMapping("/booking/{bookingId}")
+    @GetMapping("/bookings/{bookingId}")
     public ResponseEntity<IncidentReport> getReportByBooking(@PathVariable Long bookingId) {
         IncidentReport report = incidentReportService.getReportByBooking(bookingId);
         return new ResponseEntity<>(report, HttpStatus.OK);
