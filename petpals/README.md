@@ -60,7 +60,7 @@ Content-Type: application/json
 **Description:** Retrieve all caretaker accounts.
 
 ```http
-GET /caretaker
+GET /caretakers
 ```
 
 **Status Code:** `200 OK`
