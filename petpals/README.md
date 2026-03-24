@@ -86,7 +86,7 @@ GET /caretakers/2
 **Description:** Retrieve caretaker by email address.
 
 ```http
-GET /caretakers/email/{email}
+GET /caretakers/email/test@example.com
 ```
 
 **Status Code:** `200 OK` or `404 Not Found`
@@ -99,7 +99,7 @@ GET /caretakers/email/{email}
 **Description:** Retrieve caretaker by services provided.
 
 ```http
-GET /caretakers/search?service={service}
+GET /caretakers/search?service=Dog Walking
 ```
 
 **Status Code:** `200 OK` or `404 Not Found`
