@@ -14,12 +14,12 @@ The API supports three primary user roles:
 ### Caretaker/Provider Management
 
 #### Create Caretaker
-**Endpoint:** `POST /caretaker`\
+**Endpoint:** `POST /caretakers`\
 **Use Case:** Register as Caretaker\
 **Description:** Create a new caretaker account.
 
 ```http
-POST /caretaker
+POST /caretakers
 Content-Type: application/json
 
 {
