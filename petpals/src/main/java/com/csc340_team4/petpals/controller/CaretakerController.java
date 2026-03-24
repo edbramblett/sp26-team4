@@ -44,6 +44,15 @@ public class CaretakerController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Caretaker>> getServicesProvided(@RequestParam String service) {
+        List<Caretaker> caretakers = caretakerService.getServicesProvided(service);
+        if (caretakers.isEmpty()) {
+         return ResponseEntity.notFound().build();
+        }
+    return ResponseEntity.ok(caretakers);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Caretaker> updateFarmer(@PathVariable Long id, @RequestBody Caretaker caretakerDetails) {
         try {

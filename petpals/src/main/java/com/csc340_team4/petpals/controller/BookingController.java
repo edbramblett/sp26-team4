@@ -12,21 +12,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/bookings")
+@RequestMapping("/api/bookings")
 public class BookingController {
 
     @Autowired
     private BookingService bookingService;
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(
-            @RequestParam Long caretakerId,
-            @RequestParam Long customerId,
-            @RequestParam List<Long> petIds,
-            @RequestBody Booking bookingDetails) {
-
-        Booking booking = bookingService.createBooking(caretakerId, bookingDetails);
-        return new ResponseEntity<>(booking, HttpStatus.CREATED);
+    public Booking createBooking(@RequestBody Booking booking) {
+        return bookingService.createBooking(booking);
     }
 
     @GetMapping

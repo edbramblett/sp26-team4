@@ -5,7 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,11 +18,17 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@PrimaryKeyJoinColumn(name = "caretake_id")
+@PrimaryKeyJoinColumn(name = "caretaker_id")
 public class Caretaker extends User{
     @Column(columnDefinition = "TEXT")
     private String servicesProvided;
 
     @OneToMany(mappedBy = "caretaker", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Booking> bookings;
+
+    @OneToMany(mappedBy = "caretaker", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<IncidentReport> incidentReports = new ArrayList<>();
+
 }
