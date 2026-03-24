@@ -350,15 +350,14 @@ GET /incident-reports/2
 **Status Code:** `200 OK` or `404 Not Found`
 
 ---
----
 
 #### Get Incident Report by Caretaker ID
-**Endpoint:** `GET /incident-reports/caretaker/{caretaker_id}`\
+**Endpoint:** `GET /incident-reports/caretakers/{caretaker_id}`\
 **Use Case:** Browse all incident reports from a specific caretaker\
 **Description:** Retrieve specific incident reports by a caretaker ID.
 
 ```http
-GET /incident-reports/caretaker/2
+GET /incident-reports/caretakers/2
 ```
 
 **Status Code:** `200 OK` or `404 Not Found`
@@ -366,12 +365,12 @@ GET /incident-reports/caretaker/2
 ---
 
 #### Get Incident Report by Booking ID
-**Endpoint:** `GET /incident-reports/booking/{bookingId}`\
+**Endpoint:** `GET /incident-reports/bookings/{bookingId}`\
 **Use Case:** Browse all incident reports from a specific booking\
 **Description:** Retrieve specific incident reports by a booking ID.
 
 ```http
-GET /incident-reports/booking/3
+GET /incident-reports/bookings/3
 ```
 
 **Status Code:** `200 OK` or `404 Not Found`
