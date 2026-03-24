@@ -390,3 +390,23 @@ DELETE /incident-reports/12
 **Status Code:** `204 No Content` or `404 Not Found`
 
 ---
+
+### Customer Use Cases
+
+| Use Case | Description | Related Endpoints |
+|----------|-------------|-------------------|
+| **US-CUST-001** | Search for Service Providers | `GET /caretakers/{id}`, `GET /caretakers/search?service={service}`, `GET /caretakers/email/{email}` |
+| **US-CUST-002** | Create and manage Pet Profiles | |
+| **US-CUST-003** | Book a Service | `POST /bookings`, `DEL /bookings/{id}` |
+| **US-CUST-004** | Leave a Provider Review |  |
+| **US-CUST-005** | Create and manage account | |
+
+### Provider (Farmer) Use Cases
+
+| Use Case | Description | Related Endpoints |
+|----------|-------------|-------------------|
+| **US-PROV-001** | Accept/Decline Booking | `PUT /bookings/{caretaker_id}/{bookingId}`, `DEL /bookings/{id}`|
+| **US-PROV-002** | Create incident reports | `POST /incident-reports`, `PUT /incient-reports` |
+| **US-PROV-003** | Respond to reviews | |
+| **US-PROV-004** | View Booking Details | `GET /bookings/{id}`, `Get /bookings`, `Get /bookings/{bookingId}/(caretaker_id}` |
+| **US-PROV-005** | Create and manage account | `POST /caretakers`, `PUT /caretakers/{id}`, `DEL /caretakers{id}` |
