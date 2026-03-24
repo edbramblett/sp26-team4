@@ -23,11 +23,17 @@ public class BookingService {
 
 
     public Booking createBooking(Booking booking) {
-        Caretaker caretaker = caretakerRepository.findById(booking.getCaretaker_id())
+        return bookingRepository.save(booking);
+    }
+
+    public Booking assignCaretaker(Long bookingId, Long caretaker_id) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+    
+            Caretaker caretaker = caretakerRepository.findById(caretaker_id)
                 .orElseThrow(() -> new RuntimeException("Caretaker not found"));
 
-        booking.setCaretaker(caretaker);
-
+            booking.setCaretaker(caretaker);
         return bookingRepository.save(booking);
     }
 

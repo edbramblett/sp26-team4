@@ -35,6 +35,15 @@ public class BookingController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @PutMapping("/{bookingId}/{caretaker_id}")
+    public ResponseEntity<Booking> acceptBooking(
+        @PathVariable Long bookingId,
+        @PathVariable Long caretaker_id) {
+
+    Booking updated = bookingService.assignCaretaker(bookingId, caretaker_id);
+    return ResponseEntity.ok(updated);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
         bookingService.deleteBooking(id);
