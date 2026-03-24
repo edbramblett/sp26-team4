@@ -34,16 +34,16 @@ public class CaretakerService {
         return caretakerRepository.findByEmail(email);
     }
 
-    public Caretaker updateCaretaker(Long id, Caretaker caretaerDetails) {
+    public Caretaker updateCaretaker(Long id, Caretaker caretakerDetails) {
         return caretakerRepository.findById(id).map(caretaker -> {
             if (caretakerDetails.getEmail() != null) {
                 caretaker.setEmail(caretakerDetails.getEmail());
             }
-            if (caretakerDetails.getBio() != null) {
-                caretaker.setServicesProvided(caretakerDetails.getBio());
+            if (caretakerDetails.getServicesProvided() != null) {
+                caretaker.setServicesProvided(caretakerDetails.getServicesProvided());
             }
             return caretakerRepository.save(caretaker);
-        }).orElseThrow(() -> new RuntimeException("Farmer not found"));
+        }).orElseThrow(() -> new RuntimeException("Caretaker not found"));
     }
 
 }
