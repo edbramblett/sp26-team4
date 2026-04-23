@@ -3,14 +3,8 @@ package com.csc340_team4.petpals.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
-
-import org.hibernate.type.descriptor.java.LocalDateTimeJavaDescriptor;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "bookings")
@@ -18,6 +12,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Booking {
+
+    public enum BookingStatus {
+        PENDING,
+        ACCEPTED,
+        COMPLETED,
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,23 +30,20 @@ public class Booking {
     private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "caretaker_id", nullable = true)
+    @JoinColumn(name = "caretaker_id", nullable = false)  // Now required from the start
     private Caretaker caretaker;
 
-    // @ManyToOne
-    // @JoinColumn(name = "customer_id", nullable = false)
-    // private Customer customer;
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
 
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private IncidentReport incidentReport;
-
-    // @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
-    // private List<Pet> pets = new ArrayList<>();
+    @Column(nullable = false)
+    private Long customerId;
 
     @Transient
-    private Long caretaker_id;
-
-    @Transient
-    private Long customer_id;
+    private String petIds;
+    
+    @Column(columnDefinition = "TEXT")
+    private String petInfo;
 }
+
+

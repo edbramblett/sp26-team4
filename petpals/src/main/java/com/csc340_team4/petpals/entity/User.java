@@ -53,10 +53,12 @@ public class User {
   protected void onUpdate() {
     updatedAt = LocalDateTime.now();
   }
+
+  
+  public enum UserRole {
+    CARETAKER,
+    CUSTOMER
+  }
+
 }
 
-
-enum UserRole {
-  CARETAKER,
-  CUSTOMER
-}

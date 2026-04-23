@@ -52,8 +52,8 @@ public class IncidentReportController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReport(@PathVariable Long id) {
-        incidentReportService.deleteReport(id);
+    public ResponseEntity<Void> deleteReportById(@PathVariable Long id) {
+        incidentReportService.deleteReportById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

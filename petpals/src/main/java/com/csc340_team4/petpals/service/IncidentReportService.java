@@ -55,7 +55,11 @@ public class IncidentReportService {
         return incidentReportRepository.findByBookingBookingId(bookingId);
     }
 
-    public void deleteReport(Long id) {
-        incidentReportRepository.deleteById(id);
+    public void deleteReportById(Long reportId) {
+        incidentReportRepository.deleteById(reportId);
     }
+
+    public boolean hasIncidentReportForBooking(Long bookingId) {
+        return incidentReportRepository.findByBookingBookingId(bookingId) != null;
+    }   
 }
