@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>PetPals | My Pets</title>
+    <style>
+        #directoryMenu { display: none !important; }
+        #directoryMenu.active { display: block !important; }
+        input, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin-top: 10px; 
+            border-radius: 5px; 
+            border: 1px solid #ddd; 
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">🐾</div>
+        <div class="header-title">DIRECTORY</div>
+        <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <nav class="directory-overlay" id="directoryMenu">
+        <ul class="directory-list">
+            <li><a th:href="@{/customers/customer-home}">Home</a></li>
+            <li><a th:href="@{/customers/pets}">My Pets</a></li> 
+            <li><a th:href="@{/customers/bookings}">My Bookings</a></li> 
+            <li><a th:href="@{/customers/caretaker-profile}">Search Caretakers</a></li> 
+            <li><a th:href="@{/customers/login}" style="color: #ffb71b;">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content" id="pageContent">
+        <h1>My Pets</h1>
+        
+        <div th:if="${param.success}" style="background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+            Pet Profile Saved Successfully!
+        </div>
+
+        <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <h3>Add New Pet Profile</h3>
+            
+            <form th:action="@{/customers/pets/add}" th:object="${pet}" method="post">
+                <input type="text" th:field="*{name}" placeholder="Pet Name" required>
+                <input type="text" th:field="*{breed}" placeholder="Breed" required>
+                <textarea th:field="*{medicalNotes}" placeholder="Medical Notes (Allergies, Diet, etc.)"></textarea>
+                
+                <button type="submit" style="margin-top: 15px; padding: 12px 25px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%;">
+                    Save Pet
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("directoryMenu");
+            var btn = document.getElementById("menuBtn");
+            var content = document.getElementById("pageContent");
+            menu.classList.toggle("active");
+            if (menu.classList.contains("active")) {
+                btn.innerHTML = "✕"; 
+                content.style.display = "none"; 
+            } else {
+                btn.innerHTML = "☰"; 
+                content.style.display = "block"; 
+            }
+        }
+    </script>
+</body>
+</html>

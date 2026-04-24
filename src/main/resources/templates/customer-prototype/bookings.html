@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>PetPals | My Bookings</title>
+    <style>
+        #directoryMenu { display: none !important; }
+        #directoryMenu.active { display: block !important; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">🐾</div>
+        <div class="header-title">DIRECTORY</div>
+        <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
+    </header>
+
+<nav class="directory-overlay" id="directoryMenu">
+    <ul class="directory-list">
+        <li><a href="/customers/customer-home">Home</a></li>
+        <li><a href="/customers/pets">My Pets</a></li> 
+        <li><a href="/customers/bookings">My Bookings</a></li> 
+        <li><a href="/customers/caretaker-profile">Search Caretakers</a></li> 
+        <li><a href="/customers/login" style="color: #ffb71b;">Logout</a></li>
+    </ul>
+</nav>
+
+    <div class="main-content" id="pageContent">
+    <h1>Current Bookings</h1>
+    
+    <div th:each="booking : ${bookings}" 
+         style="background: white; padding: 20px; border-radius: 10px; border-left: 5px solid #ffb71b; margin-bottom: 15px;">
+        
+        <p><strong>Service:</strong> 
+           <span th:text="${booking.serviceType ?: 'General Care'}">Pet Sitting</span>
+        </p>
+        
+        <p><strong>Provider:</strong> 
+           <span th:text="${booking.caretaker != null ? booking.caretaker.firstName : 'Pending Assignment'}">Evan the Walker</span>
+        </p>
+        
+        <p><strong>Status:</strong> 
+           <span th:text="${booking.status}" style="color: #ffb71b; font-weight: bold;">PENDING</span>
+        </p>
+    </div>
+
+    <div th:if="${#lists.isEmpty(bookings)}">
+        <p>No bookings requested yet.</p>
+    </div>
+</div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("directoryMenu");
+            var btn = document.getElementById("menuBtn");
+            var content = document.getElementById("pageContent");
+            menu.classList.toggle("active");
+            if (menu.classList.contains("active")) {
+                btn.innerHTML = "✕"; 
+                content.style.display = "none"; 
+            } else {
+                btn.innerHTML = "☰"; 
+                content.style.display = "block"; 
+            }
+        }
+    </script>
+</body>
+</html>

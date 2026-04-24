@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <<link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>PetPals | Home</title>
+    
+    <style>
+        #directoryMenu {
+            display: none !important; 
+        }
+    
+        #directoryMenu.active {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-logo">🐾</div>
+        <div class="header-title">DIRECTORY</div>
+        <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
+    </header>
+
+<nav class="directory-overlay" id="directoryMenu">
+    <ul class="directory-list">
+        <li><a href="/customers/customer-home">Home</a></li>
+        <li><a href="/customers/pets">My Pets</a></li> 
+        <li><a href="/customers/bookings">My Bookings</a></li> 
+        <li><a href="/customers/caretaker-profile">Search Caretakers</a></li> 
+        <li><a href="/customers/login" style="color: #ffb71b;">Logout</a></li>
+    </ul>
+</nav>
+
+    <div class="main-content" id="pageContent">
+        <h1>Welcome, Jalen</h1>
+        <h2>Search Results for "Pet Sitter"</h2>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h3>Evan Bramblett</h3>
+        <p>Service: Professional Pet Sitting</p>
+        <button onclick="location.href='caretaker-profile.html'" style="background: #3498db; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+            View Profile & Book
+        </button>
+    </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("directoryMenu");
+            var btn = document.getElementById("menuBtn");
+            var content = document.getElementById("pageContent");
+
+            menu.classList.toggle("active");
+
+            if (menu.classList.contains("active")) {
+                btn.innerHTML = "✕"; 
+                content.style.display = "none"; 
+            } else {
+                btn.innerHTML = "☰"; 
+                content.style.display = "block"; 
+            }
+        }
+    </script>
+
+</body>
+</html>

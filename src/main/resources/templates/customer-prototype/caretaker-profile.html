@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>PetPals | Evan's Profile</title>
+    <style>
+        #directoryMenu { display: none !important; }
+        #directoryMenu.active { display: block !important; }
+        .main-content { padding: 20px; box-sizing: border-box; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .btn-booking { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        .btn-review { margin-top: 10px; padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">🐾</div>
+        <div class="header-title">DIRECTORY</div>
+        <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <nav class="directory-overlay" id="directoryMenu">
+        <ul class="directory-list">
+            <li><a th:href="@{/customers/customer-home}">Home</a></li>
+            <li><a th:href="@{/customers/pets}">My Pets</a></li> 
+            <li><a th:href="@{/customers/bookings}">My Bookings</a></li> 
+            <li><a th:href="@{/customers/caretaker-profile}">Search Caretakers</a></li> 
+            <li><a th:href="@{/customers/login}" style="color: #ffb71b;">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content" id="pageContent">
+        <h1>Caretaker: Evan</h1>
+        
+        <div class="card">
+            <h3>Request Service</h3>
+            <p style="color: #666; margin-bottom: 15px;">Book Evan for a session with your pet.</p>
+            
+            <form th:action="@{/customers/bookings/request}" method="post">
+                <button type="submit" class="btn-booking">Request Booking</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Leave a Review</h3>
+            <select style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                <option>⭐⭐⭐⭐⭐</option>
+                <option>⭐⭐⭐⭐☆</option>
+                <option>⭐⭐⭐☆☆</option>
+                <option>⭐⭐☆☆☆</option>
+                <option>⭐☆☆☆☆</option>
+            </select>
+            <textarea placeholder="Write your review here..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;"></textarea>
+            <button class="btn-review" onclick="alert('Review Submitted!')">Submit Review</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("directoryMenu");
+            var btn = document.getElementById("menuBtn");
+            var content = document.getElementById("pageContent");
+            menu.classList.toggle("active");
+            if (menu.classList.contains("active")) {
+                btn.innerHTML = "✕"; 
+                content.style.display = "none"; 
+            } else {
+                btn.innerHTML = "☰"; 
+                content.style.display = "block"; 
+            }
+        }
+    </script>
+</body>
+</html>
