@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.csc340_team4.petpals.entity.Booking;
 import com.csc340_team4.petpals.entity.Caretaker;
+import com.csc340_team4.petpals.repository.BookingRepository;
 import com.csc340_team4.petpals.service.CaretakerService;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/caretakers")
@@ -24,6 +29,10 @@ public class CaretakerController {
 
     @Autowired
     private CaretakerService caretakerService;
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
 
     @PostMapping
     public ResponseEntity<Caretaker> createCaretaker(@RequestBody Caretaker caretaker) {
@@ -66,4 +75,17 @@ public class CaretakerController {
         caretakerService.deleteCaretaker(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+    @GetMapping("/dashboard")
+public String showCaretakerDashboard(Model model, HttpSession session) {
+    Long caretakerId = (Long) session.getAttribute("userId"); 
+    
+    if (caretakerId != null) {
+        List<Booking> incomingRequests = bookingRepository.findByCaretakerUserId(caretakerId);
+        model.addAttribute("incomingRequests", incomingRequests);
+        return "caretaker-prototype/dashboard"; 
+    }
+    return "redirect:/login";
+}
 }

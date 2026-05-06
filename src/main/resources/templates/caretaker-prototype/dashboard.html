@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <<link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>PetPals | Home</title>
+    
+    <style>
+        #directoryMenu {
+            display: none !important; 
+        }
+    
+        #directoryMenu.active {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-logo">🐾</div>
+        <div class="header-title">DIRECTORY</div>
+        <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
+    </header>
+
+
+<div th:each="request : ${incomingRequests}">
+    <h3>New Request from: <span th:text="${request.customer.firstName}">Customer Name</span></h3>
+    <p>Pet: <span th:text="${request.pet.name}">Pet Name</span></p>
+    <p>Status: <span th:text="${request.status}" style="color: orange;">PENDING</span></p>
+    
+    <form th:action="@{/api/bookings/update-status}" method="post">
+        <input type="hidden" name="bookingId" th:value="${request.id}">
+        <button type="submit" name="status" value="CONFIRMED">Accept Booking</button>
+    </form>
+</div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("directoryMenu");
+            var btn = document.getElementById("menuBtn");
+            var content = document.getElementById("pageContent");
+
+            menu.classList.toggle("active");
+
+            if (menu.classList.contains("active")) {
+                btn.innerHTML = "✕"; 
+                content.style.display = "none"; 
+            } else {
+                btn.innerHTML = "☰"; 
+                content.style.display = "block"; 
+            }
+        }
+    </script>
+
+</body>
+</html>

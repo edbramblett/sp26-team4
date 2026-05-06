@@ -46,4 +46,8 @@ public class CaretakerService {
             return caretakerRepository.save(caretaker);
         }).orElseThrow(() -> new RuntimeException("Caretaker not found with id: " + id));
     }
+
+    public List<Caretaker> searchByService(String query) {
+        return (List<Caretaker>) caretakerRepository.findByServicesProvidedContainingIgnoreCase(query);
+    }
 }

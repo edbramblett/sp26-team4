@@ -28,22 +28,37 @@
         <li><a href="/customers/customer-home">Home</a></li>
         <li><a href="/customers/pets">My Pets</a></li> 
         <li><a href="/customers/bookings">My Bookings</a></li> 
-        <li><a href="/customers/caretaker-profile">Search Caretakers</a></li> 
+        <li><a href="/customers/customer-home">Search Caretakers</a></li>
         <li><a href="/customers/login" style="color: #ffb71b;">Logout</a></li>
     </ul>
 </nav>
 
-    <div class="main-content" id="pageContent">
-        <h1>Welcome, Jalen</h1>
-        <h2>Search Results for "Pet Sitter"</h2>
-    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-        <h3>Evan Bramblett</h3>
-        <p>Service: Professional Pet Sitting</p>
-        <button onclick="location.href='caretaker-profile.html'" style="background: #3498db; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
-            View Profile & Book
+<div class="main-content" id="pageContent">
+    <h1 th:text="'Welcome, ' + ${name} + '!'">Welcome, Guest!</h1>
+
+    <form th:action="@{/customers/search}" method="get" style="margin-bottom: 30px;">
+        <input type="text" name="query" placeholder="Search services (e.g., Sitting, Walking)..." 
+               style="width: 70%; padding: 12px; border-radius: 8px; border: 1px solid #ccc;">
+        <button type="submit" style="padding: 12px 20px; border-radius: 8px; background: #4db6ac; color: white; border: none; cursor: pointer;">
+            Search
         </button>
+    </form>
+
+    <h2 th:if="${searchQuery}" th:text="'Results for: ' + ${searchQuery}">Search Results</h2>
+    
+    <div th:each="caretaker : ${results}" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 15px;">
+        <h3 th:text="${caretaker.firstName} + ' ' + ${caretaker.lastName}">Caretaker Name</h3>
+        <p th:text="'Service: ' + ${caretaker.servicesProvided}">Service Description</p>
+        <button th:onclick="|location.href='/customers/caretaker-profile/' + ${caretaker.userId}|" 
+        style="background: #3498db; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+    View Profile & Book
+</button>
     </div>
+
+    <div th:if="${#lists.isEmpty(results)}">
+        <p>No caretakers found for that service.</p>
     </div>
+</div>
 
     <script>
         function toggleMenu() {

@@ -31,30 +31,40 @@
     </nav>
 
     <div class="main-content" id="pageContent">
-        <h1>Caretaker: Evan</h1>
+        <h1 th:text="'Caretaker: ' + ${caretaker.firstName}">Caretaker: Evan</h1>
         
         <div class="card">
-            <h3>Request Service</h3>
-            <p style="color: #666; margin-bottom: 15px;">Book Evan for a session with your pet.</p>
-            
-            <form th:action="@{/customers/bookings/request}" method="post">
-                <button type="submit" class="btn-booking">Request Booking</button>
-            </form>
-        </div>
+    <h3>Request Service</h3>
+    <p th:text="'Book ' + ${caretaker.firstName} + ' for a session with your pet.'">Book Evan for a session.</p>
+    
+    <form th:action="@{/customers/bookings/request}" method="post">
+        <input type="hidden" name="caretakerId" th:value="${caretaker.userId}">
+        <button type="submit" style="width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+            Request Booking
+        </button>
+    </form>
+</div>
 
-        <div class="card">
-            <h3>Leave a Review</h3>
-            <select style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ddd;">
-                <option>⭐⭐⭐⭐⭐</option>
-                <option>⭐⭐⭐⭐☆</option>
-                <option>⭐⭐⭐☆☆</option>
-                <option>⭐⭐☆☆☆</option>
-                <option>⭐☆☆☆☆</option>
-            </select>
-            <textarea placeholder="Write your review here..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;"></textarea>
-            <button class="btn-review" onclick="alert('Review Submitted!')">Submit Review</button>
-        </div>
-    </div>
+    <div class="card">
+    <h3>Leave a Review</h3>
+    <form th:action="@{/reviews/submit}" method="post">
+        
+        <input type="hidden" name="caretakerId" th:value="${caretaker.userId}">
+        
+        <select name="rating" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ddd;">
+            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐☆</option>
+            <option value="3">⭐⭐⭐☆☆</option>
+            <option value="2">⭐⭐☆☆☆</option>
+            <option value="1">⭐☆☆☆☆</option>
+        </select>
+        
+        <textarea name="comment" placeholder="Write your review here..." 
+                  style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box;"></textarea>
+        
+        <button type="submit" class="btn-review">Submit Review</button>
+    </form>
+</div>
 
     <script>
         function toggleMenu() {

@@ -151,6 +151,11 @@
     <div class="card">
         <h2>Create your account</h2>
         <form th:action="@{/customers/save}" th:object="${customer}" method="post">
+           <label for="role">I am a:</label>
+    <select th:field="*{role}" id="role" class="form-control" required>
+        <option value="CUSTOMER">Customer (Pet Owner)</option>
+        <option value="CARETAKER">Caretaker (Pet Caretaker)</option>
+    </select>    
             <label>First Name</label>
             <input type="text" th:field="*{firstName}" placeholder="First Name" required>
             
