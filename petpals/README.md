@@ -154,14 +154,14 @@ DELETE /caretaker/2
 **Description:** Create a new booking
 
 ```http
-POST /booking
+POST /bookings
 Content-Type: application/json
 
 {
   "serviceType": "Dog Walking",
   "date": "2026-03-28T14:30:00",
   "customer_id": 5,
-  "petIds": [1, 3]
+  "caretaker_id": 2
 }
 
 ```
@@ -169,25 +169,22 @@ Content-Type: application/json
 **Response:**
 ```json
 {
-  "bookingId": 12,
+  "bookingId": 10,
   "serviceType": "Dog Walking",
   "date": "2026-03-28T14:30:00",
+  "caretaker": {
+    "userId": 2,
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane@example.com"
+  },
   "customer": {
-    "createdAt": "2026-03-24T02:41:18.1484874",
-    "email": "test@example.com",
+    "userId": 5,
     "firstName": "John",
     "lastName": "Doe",
-    "passwordHash": "password",
-    "phoneNumber": "(123)-456-7890",
-    "role": "CUSTOMER",
-    "updatedAt": "2026-03-23T16:41:18.1484874",
-    "userId": 5
+    "email": "john@example.com"
   },
-  "pets": [],
-  "caretaker": null,
-  "caretaker_id": null,
-  "custoemr_id": 5,
-  "incidentReportId": null
+  "status": "PENDING"
 }
 ```
 
@@ -390,6 +387,19 @@ DELETE /incident-reports/12
 
 ---
 
+#### Respond to reviews
+**Endpoint:** `Post /reviews/reply`\
+**Use Case:** Reply to reviews from customers\
+**Description:** Create review.
+
+```http
+POST /reply/review
+```
+
+**Status Code:** `200 OK` or `404 Not Found`
+
+---
+
 ### Customer Use Cases
 
 | Use Case | Description | Related Endpoints |
@@ -406,6 +416,6 @@ DELETE /incident-reports/12
 |----------|-------------|-------------------|
 | **US-PROV-001** | Accept/Decline Booking | `PUT /bookings/{caretaker_id}/{bookingId}`, `DEL /bookings/{id}`|
 | **US-PROV-002** | Create incident reports | `POST /incident-reports`, `PUT /incient-reports` |
-| **US-PROV-003** | Respond to reviews | |
+| **US-PROV-003** | Respond to reviews | `POST /reviews/reply`|
 | **US-PROV-004** | View Booking Details | `GET /bookings/{id}`, `Get /bookings`, `Get /bookings/{bookingId}/(caretaker_id}` |
 | **US-PROV-005** | Create and manage account | `POST /caretakers`, `PUT /caretakers/{id}`, `DEL /caretakers{id}` |
