@@ -1,9 +1,14 @@
 package com.csc340_team4.petpals.controller;
 
 import com.csc340_team4.petpals.entity.Caretaker;
+import com.csc340_team4.petpals.entity.Customer;
 import com.csc340_team4.petpals.entity.User;
 import com.csc340_team4.petpals.service.CaretakerService;
+import com.csc340_team4.petpals.service.CustomerService;
+
 import jakarta.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/")
 public class GeneralUiController {
 
-    private final CaretakerService caretakerService;
+    @Autowired
+    private CaretakerService caretakerService;
+
+    @Autowired
+    private CustomerService customerService;
 
     public GeneralUiController(CaretakerService caretakerService) {
         this.caretakerService = caretakerService;
@@ -48,6 +57,17 @@ public class GeneralUiController {
             if (caretaker.getRole() == User.UserRole.CARETAKER) {
                 return "redirect:/caretaker/home";
             }
+        }
+
+        Customer customer = customerService.getCustomerByEmail(email);
+        if (customer != null && customer.getPasswordHash().equals(password)) {
+            session.setAttribute("userId", customer.getUserId());
+            session.setAttribute("userRole", "CUSTOMER");
+            session.setAttribute("userName", customer.getFirstName() + " " + customer.getLastName());
+            session.setAttribute("userEmail", customer.getEmail());;
+            session.setAttribute("customerId", customer.getUserId());
+            
+            return "redirect:/customers/customer-home";
         }
         
         
@@ -85,11 +105,19 @@ public class GeneralUiController {
             newCaretaker.setPasswordHash(password);
             newCaretaker.setRole(User.UserRole.CARETAKER);
             caretakerService.createCaretaker(newCaretaker);
-            redirectAttributes.addFlashAttribute("success", "Account created successfully! Please login.");
             return "redirect:/login";
         } else if (userType.equals("CUSTOMER")) {
-            redirectAttributes.addFlashAttribute("error", "Customer signup not yet available");
-            return "redirect:/signup";
+            Customer newCustomer = new Customer();
+            newCustomer.setFirstName(firstName);
+            newCustomer.setLastName(lastName);
+            newCustomer.setPhoneNumber(phoneNumber);
+            newCustomer.setEmail(email);
+            newCustomer.setPasswordHash(password);
+            newCustomer.setRole(User.UserRole.CUSTOMER);
+            newCustomer.setPreferredPetType("");
+            
+            customerService.createCustomer(newCustomer);
+            return "redirect:/login";
         }
         
         redirectAttributes.addFlashAttribute("error", "Invalid user type");

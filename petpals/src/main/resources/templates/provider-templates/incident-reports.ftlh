@@ -292,10 +292,10 @@
                 <form action="/caretaker/incident-reports/create" method="post">
                     <div class="form-group">
                         <label for="bookingId">Select Booking</label>
-                        <select id="bookingId" name="bookingId" required>
+                        <select id="bookingId" name="bookingId" required onchange="loadPets(this.value)">
                             <option value="">-- Select a booking --</option>
                             <#list bookings as booking>
-                                <option value="${booking.bookingId}">
+                                <option value="${booking.bookingId}" data-booking-index="${booking_index}">
                                     Booking #${booking.bookingId} - ${booking.serviceType} 
                                     (${booking.date}) - ${booking.status}
                                 </option>
@@ -303,26 +303,11 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="petType">Animal (Place Holder for Pet) </label>
-                        <select id="petType" name="petType" required>
-                            <option value="">-- Select animal type --</option>
-                            <option value="Dog">Dog</option>
-                            <option value="Cat">Cat</option>
-                            <option value="Bird">Bird</option>
-                            <option value="Fish">Fish</option>
-                            <option value="Rabbit">Rabbit</option>
-                            <option value="Hamster">Hamster</option>
-                            <option value="Reptile">Reptile</option>
-                            <option value="Horse">Horse</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
 
                     <div class="form-group">
                         <label for="description">Incident Description</label>
                         <textarea id="description" name="description" 
-                                  placeholder="Describe what happened in detail..." required></textarea>
+                                placeholder="Describe what happened in detail..." required></textarea>
                     </div>
 
                     <button type="submit" class="submit-btn">Submit Report</button>
@@ -336,17 +321,29 @@
 
         <!-- Previous Reports Section -->
         <h2>Previous Reports</h2>
-        
+
         <#if existingReports?has_content>
             <#list existingReports as report>
                 <div class="existing-report">
-                    <h3>Booking #${report.booking.bookingId} - ${report.booking.serviceType}</h3>
-                    <div class="date">Reported on: ${report.createdAt}</div>
-                    <div class="pet-type">🐾 ${report.petType}</div>
-                    <p><strong>Description:</strong> ${report.description}</p>
+                    <#if report.booking??>
+                        <h3>Booking #${report.booking.bookingId!} - ${report.booking.serviceType!}</h3>
+                        <div class="date">Reported on: ${report.createdAt!}</div>
+                        <div class="pet-type"> 
+                            <#if report.booking.pet??>
+                                ${report.booking.pet.name!} (${report.booking.pet.breed!'Unknown breed'})
+                            <#else>
+                                No pet assigned
+                            </#if>
+                        </div>
+                    <#else>
+                        <h3>Booking Information Unavailable</h3>
+                        <div class="date">Reported on: ${report.createdAt!}</div>
+                        <div class="pet-type">🐾 Unknown pet</div>
+                    </#if>
+                    <p><strong>Description:</strong> ${report.description!}</p>
                     <div class="report-actions">
                         <form action="/caretaker/incident-reports/delete/${report.reportId}" method="post" 
-                              onsubmit="return confirm('Are you sure you want to delete this incident report? This action cannot be undone.');">
+                            onsubmit="return confirm('Are you sure you want to delete this incident report? This action cannot be undone.');">
                             <button type="submit" class="delete-btn">🗑 Delete Report</button>
                         </form>
                     </div>
@@ -357,7 +354,6 @@
                 <p>No incident reports have been submitted yet.</p>
             </div>
         </#if>
-    </div>
 
     <script>
         function toggleMenu() {

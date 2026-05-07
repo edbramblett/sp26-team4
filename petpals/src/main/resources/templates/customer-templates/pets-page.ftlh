@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PetPals | Edit Account</title>
-
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>PetPals | My Pets</title>
     <style>
         :root {
             --pet-teal: #4db6ac;
@@ -107,62 +107,11 @@
         h1 {
             color: var(--pet-teal);
             margin-bottom: 20px;
-            font-size: 32px;
         }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 20px;
-            margin-bottom: 8px;
+        h3 {
             color: var(--pet-dark);
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #dfe6e9;
-            font-size: 15px;
-            background: #fafafa;
-            font-family: inherit;
-            box-sizing: border-box;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--pet-teal);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .save-btn {
-            margin-top: 30px;
-            width: 100%;
-            padding: 14px;
-            background: var(--pet-coral);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 138, 101, 0.3);
+            margin-bottom: 20px;
         }
 
         .alert-success {
@@ -182,55 +131,145 @@
             margin-bottom: 20px;
             border: 1px solid #f5c6cb;
         }
+
+        .pet-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .pet-card h3 {
+            color: var(--pet-teal);
+            margin-bottom: 10px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--pet-dark);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--pet-gray);
+            border-radius: 10px;
+            font-size: 14px;
+            transition: 0.2s;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--pet-teal);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: var(--pet-teal);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #3d9a8f;
+            transform: translateY(-2px);
+        }
+
+        .pets-list {
+            margin-bottom: 40px;
+        }
     </style>
 </head>
 <body>
-
     <header class="header">
         <div class="header-logo" onclick="location.href='/'">🐾</div>
-        <div class="header-title">EDIT ACCOUNT</div>
+        <div class="header-title">MY PETS</div>
         <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
     </header>
 
     <nav class="directory-overlay" id="directoryMenu">
         <ul class="directory-list">
-            <li><a href="/caretaker/home">Home</a></li>
-            <li><a href="/caretaker/bookings">My Bookings</a></li>
-            <li><a href="/caretaker/incident-reports">Incident Reports</a></li>
-            <li><a href="/caretaker/reviews">Respond to Reviews</a></li>
-            <li><a href="/caretaker/account">Edit Account</a></li>
+            <li><a href="/customers/customer-home">Home</a></li>
+            <li><a href="/customers/pets">My Pets</a></li>
+            <li><a href="/customers/search-caretakers">Search Caretakers</a></li>
+            <li><a href="/customers/reviews">My Reviews</a></li>
+            <li><a href="/customers/bookings">My Bookings</a></li>
             <li><a href="/logout" style="color: var(--pet-coral);">Logout</a></li>
         </ul>
     </nav>
 
     <div class="main-content" id="pageContent">
-        <h1>Edit Account</h1>
-
+        <h1>My Pets</h1>
+        
+        <!-- Alert Messages -->
         <#if success??>
             <div class="alert-success">${success}</div>
         </#if>
         <#if error??>
             <div class="alert-error">${error}</div>
         </#if>
+        
+        <!-- Display existing pets -->
+        <#if pets?? && pets?size gt 0>
+            <div class="pets-list">
+                <#list pets as pet>
+                    <div class="pet-card">
+                        <h3>${pet.name!}</h3>
+                        <p><strong>Breed:</strong> ${pet.breed!}</p>
+                        <p><strong>Medical Notes:</strong> ${pet.medicalNotes!'None'}</p>
+                    </div>
+                </#list>
+            </div>
+        </#if>
 
-        <div class="card">
-            <form action="/caretaker/account/update" method="post">
-                <label>First Name</label>
-                <input type="text" name="firstName" value="${(caretaker.firstName)!''}" required />
-
-                <label>Last Name</label>
-                <input type="text" name="lastName" value="${(caretaker.lastName)!''}" required />
-
-                <label>Email</label>
-                <input type="email" name="email" value="${(caretaker.email)!''}" required />
-
-                <label>Phone Number</label>
-                <input type="tel" name="phoneNumber" value="${(caretaker.phoneNumber)!''}" placeholder="(123)-456-7890" />
-
-                <label>Services Offered</label>
-                <textarea name="servicesProvided" placeholder="Pet sitting, dog walking, overnight care...">${(caretaker.servicesProvided)!''}</textarea>
-
-                <button type="submit" class="save-btn">Save Changes</button>
+        <!-- Add New Pet Form -->
+        <div class="form-container">
+            <h3>Add New Pet Profile</h3>
+            
+            <form action="/customers/pets/add" method="post">
+                <div class="form-group">
+                    <label>Pet Name *</label>
+                    <input type="text" name="name" placeholder="Enter pet name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Type of Pet *</label>
+                    <input type="text" name="breed" placeholder="Enter breed" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Medical Notes</label>
+                    <textarea name="medicalNotes" placeholder="Medical notes (Allergies, Diet, Medications, etc.)"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Save Pet</button>
             </form>
         </div>
     </div>
@@ -240,15 +279,13 @@
             var menu = document.getElementById("directoryMenu");
             var btn = document.getElementById("menuBtn");
             var content = document.getElementById("pageContent");
-
             menu.classList.toggle("active");
-
             if (menu.classList.contains("active")) {
-                btn.innerHTML = "✕";
-                content.style.display = "none";
+                btn.innerHTML = "✕"; 
+                content.style.display = "none"; 
             } else {
-                btn.innerHTML = "☰";
-                content.style.display = "block";
+                btn.innerHTML = "☰"; 
+                content.style.display = "block"; 
             }
         }
     </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PetPals | Edit Account</title>
+    <title>PetPals | Customer Dashboard</title>
 
     <style>
         :root {
@@ -99,88 +99,62 @@
         }
 
         .main-content {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
         h1 {
             color: var(--pet-teal);
-            margin-bottom: 20px;
-            font-size: 32px;
+            margin-bottom: 10px;
         }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 20px;
-            margin-bottom: 8px;
+        h2 {
             color: var(--pet-dark);
+            margin-bottom: 30px;
+            font-weight: normal;
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #dfe6e9;
-            font-size: 15px;
-            background: #fafafa;
-            font-family: inherit;
-            box-sizing: border-box;
+        .dashboard-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
         }
 
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--pet-teal);
+        .dashboard-card:hover {
+            transform: translateY(-3px);
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 100px;
+        .dashboard-card h3 {
+            color: var(--pet-teal);
+            margin-bottom: 15px;
+            font-size: 22px;
         }
 
-        .save-btn {
-            margin-top: 30px;
-            width: 100%;
-            padding: 14px;
+        .dashboard-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn {
             background: var(--pet-coral);
             color: white;
+            padding: 12px 24px;
             border: none;
             border-radius: 10px;
+            cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            cursor: pointer;
             transition: 0.2s;
         }
 
-        .save-btn:hover {
+        .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 138, 101, 0.3);
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
@@ -188,51 +162,57 @@
 
     <header class="header">
         <div class="header-logo" onclick="location.href='/'">🐾</div>
-        <div class="header-title">EDIT ACCOUNT</div>
+        <div class="header-title">CUSTOMER DASHBOARD</div>
         <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
     </header>
 
     <nav class="directory-overlay" id="directoryMenu">
         <ul class="directory-list">
-            <li><a href="/caretaker/home">Home</a></li>
-            <li><a href="/caretaker/bookings">My Bookings</a></li>
-            <li><a href="/caretaker/incident-reports">Incident Reports</a></li>
-            <li><a href="/caretaker/reviews">Respond to Reviews</a></li>
-            <li><a href="/caretaker/account">Edit Account</a></li>
+            <li><a href="/customers/customer-home">Home</a></li>
+            <li><a href="/customers/pets">My Pets</a></li>
+            <li><a href="/customers/search-caretakers">Search Caretakers</a></li>
+            <li><a href="/customers/reviews">My Reviews</a></li>
+            <li><a href="/customers/bookings">My Bookings</a></li>
             <li><a href="/logout" style="color: var(--pet-coral);">Logout</a></li>
         </ul>
     </nav>
 
     <div class="main-content" id="pageContent">
-        <h1>Edit Account</h1>
+        <h1>Welcome, ${(customer.firstName)!'Pet Lover'} ${(customer.lastName)!''}!</h1>
+        <h2>Your Dashboard</h2>
 
-        <#if success??>
-            <div class="alert-success">${success}</div>
-        </#if>
-        <#if error??>
-            <div class="alert-error">${error}</div>
-        </#if>
-
-        <div class="card">
-            <form action="/caretaker/account/update" method="post">
-                <label>First Name</label>
-                <input type="text" name="firstName" value="${(caretaker.firstName)!''}" required />
-
-                <label>Last Name</label>
-                <input type="text" name="lastName" value="${(caretaker.lastName)!''}" required />
-
-                <label>Email</label>
-                <input type="email" name="email" value="${(caretaker.email)!''}" required />
-
-                <label>Phone Number</label>
-                <input type="tel" name="phoneNumber" value="${(caretaker.phoneNumber)!''}" placeholder="(123)-456-7890" />
-
-                <label>Services Offered</label>
-                <textarea name="servicesProvided" placeholder="Pet sitting, dog walking, overnight care...">${(caretaker.servicesProvided)!''}</textarea>
-
-                <button type="submit" class="save-btn">Save Changes</button>
-            </form>
+        <div class="dashboard-card">
+            <h3>My Pets</h3>
+            <p>View, add, or update your furry family members' information.</p>
+            <button class="btn" onclick="location.href='/customers/pets'">
+                Manage My Pets →
+            </button>
         </div>
+
+        <div class="dashboard-card">
+            <h3>Find a Caretaker</h3>
+            <p>Search for trusted pet sitters, walkers, and groomers in your area.</p>
+            <button class="btn" onclick="location.href='/customers/search-caretakers'">
+                Search Caretakers →
+            </button>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>My Bookings</h3>
+            <p>View your upcoming and past bookings with caretakers.</p>
+            <button class="btn" onclick="location.href='/customers/bookings'">
+                View All Bookings →
+            </button>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>My Reviews</h3>
+            <p>Write reviews for caretakers and see your review history.</p>
+            <button class="btn" onclick="location.href='/customers/reviews'">
+                Write a Review →
+            </button>
+        </div>
+        
     </div>
 
     <script>
@@ -252,5 +232,6 @@
             }
         }
     </script>
+
 </body>
 </html>

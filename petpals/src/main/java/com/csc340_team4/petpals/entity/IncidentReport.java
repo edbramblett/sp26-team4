@@ -21,9 +21,6 @@ public class IncidentReport {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
-
-    @Column(nullable = false)
-    private String petType;  // Static pet type selection
     
     @Column(nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     @JsonIgnore
@@ -45,4 +42,9 @@ public class IncidentReport {
     @JoinColumn(name = "booking_id", unique = true)
     @JsonIgnore
     private Booking booking;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
 }

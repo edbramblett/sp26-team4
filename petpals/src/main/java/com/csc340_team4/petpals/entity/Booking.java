@@ -33,17 +33,21 @@ public class Booking {
     @JoinColumn(name = "caretaker_id", nullable = false)  // Now required from the start
     private Caretaker caretaker;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
-
-    @Column(nullable = false)
-    private Long customerId;
-
+    
     @Transient
     private String petIds;
     
-    @Column(columnDefinition = "TEXT")
-    private String petInfo;
+    @ManyToOne
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
+
+
 }
 
 

@@ -3,25 +3,43 @@ package com.csc340_team4.petpals.controller;
 import com.csc340_team4.petpals.entity.Booking;
 import com.csc340_team4.petpals.entity.Caretaker;
 import com.csc340_team4.petpals.entity.IncidentReport;
+import com.csc340_team4.petpals.entity.Pet;
+import com.csc340_team4.petpals.entity.Review;
 import com.csc340_team4.petpals.service.BookingService;
 import com.csc340_team4.petpals.service.CaretakerService;
+import com.csc340_team4.petpals.service.PetService;
+import com.csc340_team4.petpals.service.ReviewService;
 import com.csc340_team4.petpals.service.IncidentReportService;
 import jakarta.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.Map;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/caretaker")
 public class CaretakerUiController {
-
-    private CaretakerService caretakerService;
+    @Autowired
     private BookingService bookingService;
+    
+    @Autowired
     private IncidentReportService incidentReportService;
+
+    @Autowired
+    private CaretakerService caretakerService;
+
+    @Autowired
+    private ReviewService reviewService;
+    
+    @Autowired
+    private PetService petService;
 
     public CaretakerUiController(CaretakerService caretakerService, BookingService bookingService, IncidentReportService incidentReportService) {
         this.caretakerService = caretakerService;
@@ -256,6 +274,12 @@ public class CaretakerUiController {
             .collect(Collectors.toList());
         
         List<IncidentReport> existingReports = incidentReportService.getReportsByCaretaker(caretakerId);
+
+        for (IncidentReport report : existingReports) {
+            if (report.getBooking() != null && report.getBooking().getPet() != null) {
+            }
+        }
+        
         
         model.addAttribute("title", "Incident Reports");
         model.addAttribute("bookings", eligibleBookings);
@@ -265,7 +289,7 @@ public class CaretakerUiController {
     }
 
     @PostMapping("/incident-reports/create")
-    public String createIncidentReport(@RequestParam Long bookingId, @RequestParam String description, @RequestParam String petType, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String createIncidentReport(@RequestParam Long bookingId, @RequestParam String description, HttpSession session, RedirectAttributes redirectAttributes) {
         if (session.getAttribute("userRole") == null || 
             !session.getAttribute("userRole").equals("CARETAKER")) {
             return "redirect:/login";
@@ -285,12 +309,14 @@ public class CaretakerUiController {
                 redirectAttributes.addFlashAttribute("error", "An incident report already exists for this booking");
                 return "redirect:/caretaker/incident-reports";
             }
-            
-            IncidentReport report = new IncidentReport();
-            report.setDescription(description);
-            report.setPetType(petType);
-            
-            incidentReportService.createIncidentReport(caretakerId, bookingId, report);
+
+        
+        IncidentReport report = new IncidentReport();
+        report.setDescription(description);
+        report.setBooking(booking); 
+        
+        
+        incidentReportService.createIncidentReport(caretakerId, bookingId, report);
             
             redirectAttributes.addFlashAttribute("success", "Incident report submitted successfully!");
         } catch (Exception e) {
@@ -321,19 +347,25 @@ public class CaretakerUiController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error deleting report: " + e.getMessage());
         }
+
         
         return "redirect:/caretaker/incident-reports";
     }
 
 
     @GetMapping("/reviews")
-    public String respondToReviews(HttpSession session, Model model) {
+    public String showReviews(HttpSession session, Model model) {
         if (session.getAttribute("userRole") == null || 
             !session.getAttribute("userRole").equals("CARETAKER")) {
             return "redirect:/login";
         }
         
+        Long caretakerId = (Long) session.getAttribute("userId");
+        
+        List<Review> reviews = reviewService.getReviewsForCaretaker(caretakerId);
+        model.addAttribute("reviews", reviews);
         model.addAttribute("title", "Respond to Reviews");
+        
         return "provider-templates/respond-reviews";
     }
 }

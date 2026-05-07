@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PetPals | Respond to Reviews</title>
+    <title>PetPals | My Reviews</title>
 
     <style>
         :root {
@@ -146,7 +146,7 @@
             gap: 10px;
         }
 
-        .customer-name {
+        .caretaker-name {
             font-size: 18px;
             font-weight: bold;
             color: var(--pet-teal);
@@ -170,31 +170,7 @@
             margin-top: 10px;
         }
 
-        .reply-form {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border: 1px solid var(--pet-gray);
-        }
-
-        .reply-form textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #dfe6e9;
-            font-size: 14px;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .reply-form textarea:focus {
-            outline: none;
-            border-color: var(--pet-teal);
-        }
-
-        .existing-reply {
+        .caretaker-reply {
             background: #e8f5e9;
             padding: 15px;
             border-radius: 10px;
@@ -202,45 +178,10 @@
             border-left: 3px solid var(--pet-teal);
         }
 
-        .existing-reply strong {
+        .caretaker-reply strong {
             color: var(--pet-teal);
             display: block;
             margin-bottom: 8px;
-        }
-
-        .btn-submit-reply {
-            background: var(--pet-teal);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: 10px;
-            transition: 0.2s;
-        }
-
-        .btn-submit-reply:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(77, 182, 172, 0.3);
-        }
-
-        .btn-edit {
-            background: var(--pet-gray);
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            margin-left: 10px;
-            transition: 0.2s;
-        }
-
-        .btn-edit:hover {
-            background: #9eabb5;
         }
 
         .no-reviews {
@@ -254,6 +195,16 @@
         .no-reviews p {
             margin-bottom: 20px;
             font-size: 18px;
+        }
+
+        .no-reviews a {
+            color: var(--pet-teal);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .no-reviews a:hover {
+            text-decoration: underline;
         }
 
         .alert-success {
@@ -307,23 +258,23 @@
 
     <header class="header">
         <div class="header-logo" onclick="location.href='/'">🐾</div>
-        <div class="header-title">RESPOND TO REVIEWS</div>
+        <div class="header-title">MY REVIEWS</div>
         <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
     </header>
 
     <nav class="directory-overlay" id="directoryMenu">
         <ul class="directory-list">
-            <li><a href="/caretaker/home">Home</a></li>
-            <li><a href="/caretaker/bookings">My Bookings</a></li>
-            <li><a href="/caretaker/incident-reports">Incident Reports</a></li>
-            <li><a href="/caretaker/reviews">Respond to Reviews</a></li>
-            <li><a href="/caretaker/account">Edit Account</a></li>
+            <li><a href="/customers/customer-home">Home</a></li>
+            <li><a href="/customers/pets">My Pets</a></li>
+            <li><a href="/customers/search-caretakers">Search Caretakers</a></li>
+            <li><a href="/customers/reviews">My Reviews</a></li>
+            <li><a href="/customers/bookings">My Bookings</a></li>
             <li><a href="/logout" style="color: var(--pet-coral);">Logout</a></li>
         </ul>
     </nav>
 
     <div class="main-content" id="pageContent">
-        <h1>Customer Reviews</h1>
+        <h1>My Reviews</h1>
 
         <#if success??>
             <div class="alert-success">${success}</div>
@@ -354,28 +305,28 @@
             </div>
             <div class="stat-card">
                 <div class="stat-number">
-                    <#assign responded = 0>
+                    <#assign replied = 0>
                     <#list reviews as review>
                         <#if review.caretakerReply?? && review.caretakerReply != "">
-                            <#assign responded = responded + 1>
+                            <#assign replied = replied + 1>
                         </#if>
                     </#list>
-                    ${responded}
+                    ${replied}
                 </div>
-                <div class="stat-label">Reviews Responded</div>
+                <div class="stat-label">Caretaker Responses</div>
             </div>
         </div>
 
         <!-- Reviews List -->
         <div class="reviews-section">
-            <h2>All Customer Reviews</h2>
+            <h2>All My Reviews</h2>
             
             <#if reviews?has_content>
                 <#list reviews as review>
                     <div class="review-card">
                         <div class="review-header">
-                            <span class="customer-name">
-                                ${review.customer.firstName!} ${review.customer.lastName!}
+                            <span class="caretaker-name">
+                                ${review.caretaker.firstName!} ${review.caretaker.lastName!}
                             </span>
                             <span class="review-rating">
                                 <#if review.rating == 5>★★★★★
@@ -396,32 +347,28 @@
                         </div>
                         
                         <#if review.caretakerReply?? && review.caretakerReply != "">
-                            <div class="existing-reply">
-                                <strong>Your Response:</strong>
+                            <div class="caretaker-reply">
+                                <strong>Caretaker Response:</strong>
                                 ${review.caretakerReply}
-                            
+                            </div>
                         <#else>
-                            <div class="reply-form">
-                                <form action="/reviews/reply" method="post">
-                                    <input type="hidden" name="reviewId" value="${review.reviewId}">
-                                    <textarea name="reply" rows="3" placeholder="Write your response to this customer..." required></textarea>
-                                    <button type="submit" class="btn-submit-reply">Submit Response</button>
-                                </form>
+                            <div class="caretaker-reply" style="background: #f5f5f5; color: var(--pet-gray);">
+                                <strong>No response yet</strong>
+                                <small>The caretaker hasn't responded to this review.</small>
                             </div>
                         </#if>
                     </div>
                 </#list>
             <#else>
                 <div class="no-reviews">
-                    <p>No reviews yet.</p>
-                    <p>When customers leave reviews, they will appear here.</p>
+                    <p>You haven't written any reviews yet.</p>
+                    <p><a href="/customers/search-caretakers">Search for caretakers</a> and leave a review after your booking!</p>
                 </div>
             </#if>
         </div>
     </div>
 
     <script>
-        
         function toggleMenu() {
             var menu = document.getElementById("directoryMenu");
             var btn = document.getElementById("menuBtn");

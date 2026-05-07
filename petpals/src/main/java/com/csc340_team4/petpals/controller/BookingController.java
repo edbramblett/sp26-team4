@@ -3,15 +3,21 @@ package com.csc340_team4.petpals.controller;
 import com.csc340_team4.petpals.entity.Booking;
 import com.csc340_team4.petpals.entity.Booking.BookingStatus;
 import com.csc340_team4.petpals.entity.Caretaker;
+import com.csc340_team4.petpals.entity.Customer;
 import com.csc340_team4.petpals.service.BookingService;
 import com.csc340_team4.petpals.service.CaretakerService;
+import com.csc340_team4.petpals.service.CustomerService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
@@ -30,15 +36,16 @@ public class BookingController {
     @Autowired
     private CaretakerService caretakerService;
 
+    @Autowired
+    private CustomerService customerService;
+
     @PostMapping
     public ResponseEntity<?> createBooking(@RequestBody Map<String, Object> request) {
         try {
-            // Extract data from request
             String serviceType = (String) request.get("serviceType");
             String dateStr = (String) request.get("date");
             Integer customerId = (Integer) request.get("customer_id");
-            Integer caretakerId = (Integer) request.get("caretaker_id");  // Caretaker ID from the start
-            List<Integer> petIds = (List<Integer>) request.get("petIds");
+            Integer caretakerId = (Integer) request.get("caretaker_id");  // Caretaker ID from the start;
             
             // Validate required fields
             if (serviceType == null || dateStr == null || customerId == null || caretakerId == null) {
@@ -63,13 +70,10 @@ public class BookingController {
             booking.setServiceType(serviceType);
             booking.setDate(date);
             booking.setCaretaker(caretakerOpt.get());
-            booking.setCustomerId(Long.valueOf(customerId));
+            Customer customer = customerService.getCustomerById(Long.valueOf(customerId));
+            booking.setCustomer(customer);
             booking.setStatus(BookingStatus.PENDING);
             
-            // Store pet IDs as a string
-            if (petIds != null && !petIds.isEmpty()) {
-                booking.setPetInfo(petIds.toString());
-            }
             
             Booking savedBooking = bookingService.createBooking(booking);
             return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
@@ -158,4 +162,5 @@ public class BookingController {
             return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-}
+
+ }

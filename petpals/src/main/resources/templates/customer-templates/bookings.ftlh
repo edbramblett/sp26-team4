@@ -39,6 +39,7 @@
 
         .header-logo {
             font-size: 32px;
+            cursor: pointer;
         }
 
         .header-title {
@@ -153,7 +154,7 @@
         .booking-label {
             font-weight: bold;
             display: inline-block;
-            width: 120px;
+            width: 130px;
         }
 
         .status {
@@ -177,46 +178,6 @@
         .status-completed {
             background: #2ecc71;
             color: white;
-        }
-
-        .action-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-right: 10px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .accept-btn {
-            background: #2ecc71;
-            color: white;
-        }
-
-        .accept-btn:hover {
-            background: #27ae60;
-            transform: translateY(-2px);
-        }
-
-        .decline-btn {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .decline-btn:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-        }
-
-        .complete-btn {
-            background: #3498db;
-            color: white;
-        }
-
-        .complete-btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
         }
 
         .alert-success {
@@ -253,23 +214,29 @@
             font-size: 14px;
             margin-left: 10px;
         }
+        
+        .caretaker-name {
+            color: var(--pet-teal);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <div class="header-logo">🐾</div>
+        <div class="header-logo" onclick="location.href='/'">🐾</div>
         <div class="header-title">MY BOOKINGS</div>
         <div class="header-toggle" id="menuBtn" onclick="toggleMenu()">☰</div>
     </header>
 
     <nav class="directory-overlay" id="directoryMenu">
         <ul class="directory-list">
-            <li><a href="/caretaker/home">Home</a></li>
-            <li><a href="/caretaker/bookings">My Bookings</a></li>
-            <li><a href="/caretaker/incident-reports">Incident Reports</a></li>
-            <li><a href="/caretaker/reviews">Respond to Reviews</a></li>
-            <li><a href="/caretaker/account">Edit Account</a></li>
+            <li><a href="/customers/customer-home">Home</a></li>
+            <li><a href="/customers/pets">My Pets</a></li>
+            <li><a href="/customers/search-caretakers">Search Caretakers</a></li>
+            <li><a href="/customers/reviews">My Reviews</a></li>
+            <li><a href="/customers/bookings">My Bookings</a></li>
+            <li><a href="/customers/account">Account Settings</a></li>
             <li><a href="/logout" style="color: var(--pet-coral);">Logout</a></li>
         </ul>
     </nav>
@@ -284,6 +251,7 @@
             <div class="alert-error">${error}</div>
         </#if>
 
+        <!-- PENDING BOOKINGS SECTION -->
         <div class="section">
             <h2>
                 Pending Bookings 
@@ -295,16 +263,16 @@
                     <div class="booking-card">
                         <h3>Booking #${booking.bookingId} — ${booking.serviceType}</h3>
                         <div class="booking-detail">
+                            <span class="booking-label">Caretaker:</span>
+                            <span class="caretaker-name">${booking.caretaker.firstName!} ${booking.caretaker.lastName!}</span>
+                        </div>
+                        <div class="booking-detail">
                             <span class="booking-label">Service Type:</span>
                             <span>${booking.serviceType}</span>
                         </div>
                         <div class="booking-detail">
-                            <span class="booking-label">Date:</span>
+                            <span class="booking-label">Date & Time:</span>
                             <span>${booking.date}</span>
-                        </div>
-                        <div class="booking-detail">
-                            <span class="booking-label">Customer:</span>
-                            <span>${booking.customer.firstName} ${booking.customer.lastName}</span>
                         </div>
                         <div class="booking-detail">
                             <span class="booking-label">Status:</span>
@@ -323,26 +291,20 @@
                                 </#if>
                             </span>
                         </div>
-                        
-                        <form action="/caretaker/bookings/accept/${booking.bookingId}" method="post" style="display: inline;">
-                            <button type="submit" class="action-btn accept-btn">✓ Accept</button>
-                        </form>
-                        <form action="/caretaker/bookings/decline/${booking.bookingId}" method="post" style="display: inline;">
-                            <button type="submit" class="action-btn decline-btn">✗ Decline</button>
-                        </form>
                     </div>
                 </#list>
             <#else>
                 <div class="no-bookings">
                     <p>No pending bookings</p>
+                    <p><a href="/customers/search-caretakers">Book a caretaker →</a></p>
                 </div>
             </#if>
         </div>
 
-        <!-- ACCEPTED BOOKINGS SECTION -->
+        <!-- ACTIVE/ACCEPTED BOOKINGS SECTION -->
         <div class="section">
             <h2>
-                Accepted Bookings 
+                Active Bookings 
                 <span class="count-badge">${acceptedBookings?size}</span>
             </h2>
             
@@ -351,16 +313,16 @@
                     <div class="booking-card">
                         <h3>Booking #${booking.bookingId} — ${booking.serviceType}</h3>
                         <div class="booking-detail">
+                            <span class="booking-label">Caretaker:</span>
+                            <span class="caretaker-name">${booking.caretaker.firstName!} ${booking.caretaker.lastName!}</span>
+                        </div>
+                        <div class="booking-detail">
                             <span class="booking-label">Service Type:</span>
                             <span>${booking.serviceType}</span>
                         </div>
                         <div class="booking-detail">
-                            <span class="booking-label">Date:</span>
+                            <span class="booking-label">Date & Time:</span>
                             <span>${booking.date}</span>
-                        </div>
-                        <div class="booking-detail">
-                            <span class="booking-label">Customer:</span>
-                            <span>${booking.customer.firstName} ${booking.customer.lastName}</span>
                         </div>
                         <div class="booking-detail">
                             <span class="booking-label">Status:</span>
@@ -372,22 +334,18 @@
                                 <#if booking.pet??>
                                     ${booking.pet.name!} (${booking.pet.breed!'Unknown breed'})
                                     <#if booking.pet.medicalNotes?? && booking.pet.medicalNotes != "">
-                                        <br><small> ${booking.pet.medicalNotes}</small>
+                                        <br><small>${booking.pet.medicalNotes}</small>
                                     </#if>
                                 <#else>
                                     No pet selected
                                 </#if>
                             </span>
                         </div>
-                        
-                        <form action="/caretaker/bookings/complete/${booking.bookingId}" method="post" style="display: inline;">
-                            <button type="submit" class="action-btn complete-btn">✓ Mark Complete</button>
-                        </form>
                     </div>
                 </#list>
             <#else>
                 <div class="no-bookings">
-                    <p>No accepted bookings</p>
+                    <p>No active bookings</p>
                 </div>
             </#if>
         </div>
@@ -404,20 +362,16 @@
                     <div class="booking-card">
                         <h3>Booking #${booking.bookingId} — ${booking.serviceType}</h3>
                         <div class="booking-detail">
+                            <span class="booking-label">Caretaker:</span>
+                            <span class="caretaker-name">${booking.caretaker.firstName!} ${booking.caretaker.lastName!}</span>
+                        </div>
+                        <div class="booking-detail">
                             <span class="booking-label">Service Type:</span>
                             <span>${booking.serviceType}</span>
                         </div>
                         <div class="booking-detail">
-                            <span class="booking-label">Date:</span>
+                            <span class="booking-label">Date & Time:</span>
                             <span>${booking.date}</span>
-                        </div>
-                        <div class="booking-detail">
-                            <span class="booking-label">Customer:</span>
-                            <span>${booking.customer.firstName} ${booking.customer.lastName}</span>
-                        </div>
-                        <div class="booking-detail">
-                            <span class="booking-label">Status:</span>
-                            <span class="status status-completed">${booking.status}</span>
                         </div>
                         <div class="booking-detail">
                             <span class="booking-label">Pet:</span>
