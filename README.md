@@ -8,7 +8,7 @@ Evan Bramblett
 Jalen Higgins
 
 ## Description 
-Our app will be a place for pet owners to be quickly connected to pet sitters and pet walkers for any of their needs. The app will include the ability to make bookings, a review system, and GPS walking routes. Our app aims to create an easy way for pet owners to find the care they need from a wide range of pet caretakers. The motivation is to streamline pet care by centralizing trust and logistics. The goal is to provide a reliable platform where owners can feel safe hiring help, and sitters can manage their business efficiently.
+Our app will be a place for pet owners to be quickly connected to pet sitters and pet walkers for any of their needs. The app will include the ability to add pets, make bookings, view caretakers, and leave reviews. Caretakers will be able to make incident report and accept bookings at their choice. Our app aims to create an easy way for pet owners to find the care they need from a wide range of pet caretakers. The motivation is to streamline pet care by centralizing trust and logistics. The goal is to provide a reliable platform where owners can feel safe hiring help, and sitters can manage their business efficiently.
 
 ## App Functions
 1. Customer (Jalen):
@@ -18,8 +18,7 @@ Our app will be a place for pet owners to be quickly connected to pet sitters an
     4. Write reviews for services - After a service is complete, the user will be given a link to a review page to write a review
     5. Make payments - When making a booking, the user will pay for the services, and after the service will have the ability to leave an additonal tip
 2. Provider (Evan):
-    1. Create/modify/remove provider profile - Allow caretakers to create their profiles, list their provide services, and days they work
-    2. Connect pet caretakers to customers - Provide a chat service or similar way for caretakers to contact owners
-    2. Allow pet caretakers to accept/decline bookings - A system that lets caretakers confirm or decline bookings that they receive
+    1. Create/modify/remove provider profile - Allow caretakers to create their profiles, list their provide services
+    2. Allow pet caretakers to accept/decline bookings - A system that lets caretakers confirm or decline bookings that they receive. Accepted booking can be completed after the booking has taken place
     3. Create incident reports - A page that allows caretakers to create reports if there are any incidents with pets, so that it is documented
     4. Reply to reviews - See reviews posted to them, and allow them to add replies to reviews
