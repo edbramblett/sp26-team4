@@ -393,10 +393,8 @@ DELETE /incident-reports/12
 **Description:** Create review.
 
 ```http
-POST /reply/review
+POST /reply/review/{id}
 ```
-
-**Status Code:** `200 OK` or `404 Not Found`
 
 ```http
 POST /reviews/reply/1
@@ -414,6 +412,8 @@ Content-Type: application/json
 	"comment": "Good gut"
 	"caretaker-reply": "Thank you for you're review"
 }
+```
+**Status Code:** `200 OK` or `404 Not Found`
 ```
 
 ### Customer Use Cases
