@@ -388,13 +388,10 @@ DELETE /incident-reports/12
 ---
 
 #### Respond to reviews
-**Endpoint:** `Post /reviews/reply`\
+**Endpoint:** `Post /reviews/reply/{id}`\
 **Use Case:** Reply to reviews from customers\
 **Description:** Create review.
 
-```http
-POST /reply/review/{id}
-```
 
 ```http
 POST /reviews/reply/1
