@@ -398,7 +398,23 @@ POST /reply/review
 
 **Status Code:** `200 OK` or `404 Not Found`
 
----
+```http
+POST /reviews/reply/1
+Content-Type: application/json
+
+{
+  "reply": "Thank you for you're review"
+}
+
+```
+**Response:**
+```json
+{
+	"reviewId": 1,
+	"comment": "Good gut"
+	"caretaker-reply": "Thank you for you're review"
+}
+```
 
 ### Customer Use Cases
 
@@ -414,7 +430,7 @@ POST /reply/review
 
 | Use Case | Description | Related Endpoints |
 |----------|-------------|-------------------|
-| **US-PROV-001** | Accept/Decline Booking | `PUT /bookings/{caretaker_id}/{bookingId}`, `DEL /bookings/{id}`|
+| **US-PROV-001** | Accept/Decline/Complete Booking | `PUT /bookings/{caretaker_id}/{bookingId}`, `DEL /bookings/{id}`|
 | **US-PROV-002** | Create incident reports | `POST /incident-reports`, `PUT /incient-reports` |
 | **US-PROV-003** | Respond to reviews | `POST /reviews/reply`|
 | **US-PROV-004** | View Booking Details | `GET /bookings/{id}`, `Get /bookings`, `Get /bookings/{bookingId}/(caretaker_id}` |
